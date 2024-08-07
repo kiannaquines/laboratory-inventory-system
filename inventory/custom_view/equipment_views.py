@@ -5,22 +5,22 @@ from inventory.models import *
 from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-class EquipmentListView(ListView):
+class EquipmentListView(LoginRequiredMixin, ListView):
     template_name = 'equipment.html'
     model = Equipment
     context_object_name = 'chemicals'
 
-class EquipmentCategoryView(ListView):
+class EquipmentCategoryView(LoginRequiredMixin, ListView):
     template_name = 'equipment_category.html'
     model = EquipmentCategory
     context_object_name = 'equipment_categories'
 
-class EquipmentReportView(TemplateView):
+class EquipmentReportView(LoginRequiredMixin, TemplateView):
     template_name = 'equipment_report.html'
 
-class AddEquipmentCategoryView(CreateView):
+class AddEquipmentCategoryView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = Equipment
     success_url = reverse_lazy('equipment_category')
@@ -36,7 +36,7 @@ class AddEquipmentCategoryView(CreateView):
         context['button_name'] = 'Save Equipment Category'
         return context
 
-class AddEquipmentView(CreateView):
+class AddEquipmentView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = Equipment
     success_url = reverse_lazy('equipments')

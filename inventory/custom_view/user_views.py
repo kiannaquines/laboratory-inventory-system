@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
 from django.contrib.auth.models import User as DefaultUser
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class UserList(ListView):
+class UserList(LoginRequiredMixin, ListView):
     template_name = 'user.html'
     model = DefaultUser
