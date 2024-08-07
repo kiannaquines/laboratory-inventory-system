@@ -1,5 +1,6 @@
 from django.urls import path
 from inventory.views import *
+from inventory.custom_view.auth_view import *
 
 app_name = 'inventory'
 

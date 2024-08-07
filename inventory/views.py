@@ -1,37 +1,30 @@
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.views.generic import TemplateView, CreateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import TemplateView, CreateView, ListView
 from inventory.models import *
 from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
 
-class LoginPage(LoginView):
-    template_name = 'registration/login.html'
-
-class RegisterPage(TemplateView):
-    template_name = 'registration/register.html'
-
-class LogoutPage(LogoutView):
-    next_page_url = '/'
-
 class DashboardPage(TemplateView):
     template_name = 'dashboard.html'
 
-class EquipmentList(TemplateView):
+class EquipmentList(ListView):
     template_name = 'equipment.html'
+    model = Equipment
+    paginate_by = 10
+    context_object_name = 'chemicals'
 
-class UserList(TemplateView):
+class UserList(ListView):
     template_name = 'user.html'
 
 class ChemicalList(TemplateView):
     template_name = 'chemical.html'
 
-class ChemicalCategory(TemplateView):
+class ChemicalCategory(ListView):
     template_name = 'chemical_category.html'
 
-class EquipmentCategory(TemplateView):
+class EquipmentCategory(ListView):
     template_name = 'equipment_category.html'
 
 class EquipmentReport(TemplateView):
