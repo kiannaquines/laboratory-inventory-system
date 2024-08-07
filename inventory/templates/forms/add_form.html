@@ -1,0 +1,46 @@
+{% extends './../includes/base.html' %}
+{% block site_breadcrumbs %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">{{ header_title }}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ header_title }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <section class="col-lg-12 connectedSortable">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold">
+                    {{ header_title }}
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% for input in form %}
+                       <div class="form-group">
+                            <label for="{{ input.id_for_label }}">{{ input.label }}</label>
+                            {{ input }}
+                            <span class="text-muted text-sm">{{ input.help_text }}</span>
+                       </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary">{{ button_name }}</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

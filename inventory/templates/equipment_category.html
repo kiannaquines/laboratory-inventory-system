@@ -22,10 +22,13 @@
 <div class="row">
     <section class="col-lg-12 connectedSortable">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title font-weight-bold">
                     Latest Equipments
                 </h3>
+                <div class="ml-auto">
+                    <a href="{% url 'inventory:add_equipment_category' %}" class="btn btn-primary">Add Equipment Category</a>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
