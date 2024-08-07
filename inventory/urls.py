@@ -22,7 +22,6 @@ urlpatterns = [
     path('chemicals/category',ChemicalList.as_view(),name="chemical_category"),
     path('chemicals/report',ChemicalList.as_view(),name="chemical_report"),
     
-
     # Create Urls
 
     # Update Urls
