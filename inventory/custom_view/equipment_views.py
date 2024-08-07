@@ -10,21 +10,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class EquipmentListView(LoginRequiredMixin, ListView):
     template_name = 'equipment.html'
     model = Equipment
-    context_object_name = 'chemicals'
+    context_object_name = 'equipments'
 
 class EquipmentCategoryView(LoginRequiredMixin, ListView):
     template_name = 'equipment_category.html'
     model = EquipmentCategory
     context_object_name = 'equipment_categories'
 
-class EquipmentReportView(LoginRequiredMixin, TemplateView):
-    template_name = 'equipment_report.html'
-
 class AddEquipmentCategoryView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
-    model = Equipment
-    success_url = reverse_lazy('equipment_category')
-    form_class = EquipmentForm
+    model = EquipmentCategory
+    success_url = reverse_lazy('inventory:equipment_category')
+    form_class = EquipmentCategoryForm
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
@@ -39,7 +36,7 @@ class AddEquipmentCategoryView(LoginRequiredMixin, CreateView):
 class AddEquipmentView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = Equipment
-    success_url = reverse_lazy('equipments')
+    success_url = reverse_lazy('inventory:equipments')
     form_class = EquipmentForm
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
@@ -51,3 +48,6 @@ class AddEquipmentView(LoginRequiredMixin, CreateView):
         context['header_title'] = 'Add Equipment'
         context['button_name'] = 'Save Equipment'
         return context
+    
+class EquipmentReportView(LoginRequiredMixin, TemplateView):
+    template_name = 'equipment_report.html'

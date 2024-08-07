@@ -47,6 +47,11 @@ class EquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
         fields = '__all__'
+        widgets = {
+            'equipment_purchase_date': forms.DateInput({
+                'type': 'date',
+            })
+        }
 
 class EquipmentCategoryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -7,6 +7,9 @@ class EquipmentCategory(models.Model):
     class Meta:
         verbose_name_plural = 'Equipment Categories'
 
+    def __str__(self) -> str:
+        return self.category_name
+
 class Equipment(models.Model):
     equipment_name = models.CharField(max_length=100,help_text="Enter the equipment name.")
     equipment_model = models.CharField(max_length=100,help_text="Enter the equipment model.")
@@ -21,6 +24,9 @@ class Equipment(models.Model):
         db_table = 'equipment'
         verbose_name_plural = 'Equipment'
 
+    def __str__(self) -> str:
+        return self.equipment_name
+
 class ChemicalCategory(models.Model):
     category_name = models.CharField(max_length=100,help_text="Enter the chemical category name.")
     date_added = models.DateTimeField(auto_now_add=True)
@@ -28,6 +34,9 @@ class ChemicalCategory(models.Model):
     class Meta:
         db_table = 'chemical_categories'
         verbose_name_plural = 'Chemical Categories'
+
+    def __str__(self) -> str:
+        return self.category_name
 
 class Chemicals(models.Model):
     chemical_composition = (
@@ -45,3 +54,6 @@ class Chemicals(models.Model):
     class Meta:
         db_table = 'chemicals'
         verbose_name_plural = 'Chemicals'
+
+    def __str__(self) -> str:
+        return self.name

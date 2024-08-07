@@ -7,9 +7,11 @@ from inventory.forms import *
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ChemicalList(LoginRequiredMixin, TemplateView):
+class ChemicalList(LoginRequiredMixin, ListView):
     template_name = 'chemical.html'
-
+    model = Chemicals
+    context_object_name = 'chemicals'
+    
 class ChemicalCategory(LoginRequiredMixin, ListView):
     template_name = 'chemical_category.html'
     model = ChemicalCategory
@@ -39,7 +41,7 @@ class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
 class AddChemicalView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = Chemicals
-    success_url = reverse_lazy('chemicals')
+    success_url = reverse_lazy('inventory:chemicals')
     form_class = ChemicalForm
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
