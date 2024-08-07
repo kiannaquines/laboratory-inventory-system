@@ -2,10 +2,15 @@ from django.urls import path
 from inventory.views import *
 
 urlpatterns = [
-    # Dashboard View
-    path('',DashboardPage.as_view(),name="dashboard"),
+
+    # Auth Urls
+    path('', LoginPage.as_view(), name="login"),
+    path('register/', RegisterPage.as_view(), name="register"),
     
-    # List Views
+    # Dashboard Urls
+    path('dashboard/',DashboardPage.as_view(),name="dashboard"),
+    
+    # List Urls
     path('equipments/',EquipmentList.as_view(),name="equipments"),
     path('equipments/category',EquipmentCategory.as_view(),name="equipment_category"),
     path('equipments/report',EquipmentReport.as_view(),name="equipment_report"),
@@ -15,9 +20,9 @@ urlpatterns = [
     path('chemicals/report',ChemicalList.as_view(),name="chemical_report"),
     
 
-    # Create Views
+    # Create Urls
 
-    # Update Views
+    # Update Urls
 
-    # Delete Views
+    # Delete Urls
 ]
