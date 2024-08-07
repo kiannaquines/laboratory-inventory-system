@@ -4,6 +4,10 @@ from inventory.views import *
 app_name = 'inventory'
 
 urlpatterns = [
+
+    # Auth Urls
+    path('', LoginPage.as_view(), name="login"),
+    path('register/', RegisterPage.as_view(), name="register"),
     
     # Dashboard Urls
     path('dashboard/',DashboardPage.as_view(),name="dashboard"),
