@@ -9,7 +9,5 @@ from typing import Any
 class DashboardPage(TemplateView):
     template_name = 'dashboard.html'
 
-class UserList(ListView):
-    template_name = 'user.html'
 
 
