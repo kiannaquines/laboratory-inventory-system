@@ -7,17 +7,17 @@ from inventory.forms import *
 from typing import Any
 
 
-class EquipmentList(ListView):
+class EquipmentListView(ListView):
     template_name = 'equipment.html'
     model = Equipment
     context_object_name = 'chemicals'
 
-class EquipmentCategory(ListView):
+class EquipmentCategoryView(ListView):
     template_name = 'equipment_category.html'
     model = EquipmentCategory
     context_object_name = 'equipment_categories'
 
-class EquipmentReport(TemplateView):
+class EquipmentReportView(TemplateView):
     template_name = 'equipment_report.html'
 
 class AddEquipmentCategoryView(CreateView):

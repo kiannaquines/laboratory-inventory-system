@@ -1,7 +1,7 @@
 from django.urls import path
 from inventory.views import *
-from inventory.custom_view.auth_view import *
-from inventory.custom_view.user_view import *
+from inventory.custom_view.auth_views import *
+from inventory.custom_view.user_views import *
 from inventory.custom_view.equipment_views import *
 from inventory.custom_view.chemical_views import *
 
@@ -19,9 +19,9 @@ urlpatterns = [
     # List Urls
     path('users/',UserList.as_view(),name="users"),
 
-    path('equipments/',EquipmentList.as_view(),name="equipments"),
-    path('equipments/category',EquipmentCategory.as_view(),name="equipment_category"),
-    path('equipments/report',EquipmentReport.as_view(),name="equipment_report"),
+    path('equipments/',EquipmentListView.as_view(),name="equipments"),
+    path('equipments/category',EquipmentCategoryView.as_view(),name="equipment_category"),
+    path('equipments/report',EquipmentReportView.as_view(),name="equipment_report"),
 
     path('chemicals/',ChemicalList.as_view(),name="chemicals"),
     path('chemicals/category',ChemicalCategory.as_view(),name="chemical_category"),
