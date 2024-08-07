@@ -20,15 +20,15 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{% url 'inventory:dashboard' %}" class="nav-link">
+            <a href="{% url 'inventory:dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item {% if request.path == '/equipments/' or request.path == '/equipments/category' %}menu-is-opening menu-open{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/equipments/' %}menu-is-opening menu-open active{% endif %}">
               <i class="nav-icon fa-solid fa-toolbox"></i>
               <p>
                 Equipment
@@ -50,8 +50,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item {% if request.path == '/chemicals/' or request.path == '/chemicals/category'%}menu-is-opening menu-open{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/chemicals/' or request.path == '/chemicals/category' %}menu-is-opening menu-open active{% endif %}">
               <i class="nav-icon fa-solid fa-flask-vial"></i>
               <p>
                 Chemicals
@@ -73,8 +73,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item {% if request.path == '/users/' %}menu-is-opening menu-open{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/users/' %}menu-is-opening menu-open active{% endif %}">
               <i class="nav-icon fa-solid fa-users"></i>
               <p>
                 Users
@@ -90,8 +90,8 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item  {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}menu-is-opening menu-open{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}active{% endif %}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Reports
