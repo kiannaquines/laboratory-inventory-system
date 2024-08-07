@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.min.css' %}">
-
         <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
@@ -78,9 +77,12 @@
         <script>
         $(function () {
           $("#datatable-container").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+          }).buttons()
+          .container()
+          .appendTo('#datatable-container_wrapper .col-md-6:eq(0)');
         });
         </script>
         {% block js %}{% endblock %}
