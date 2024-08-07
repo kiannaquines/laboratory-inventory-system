@@ -11,4 +11,16 @@ class UserList(TemplateView):
 
 class ChemicalList(TemplateView):
     template_name = 'chemical.html'
+
+class ChemicalCategory(TemplateView):
+    template_name = 'chemical_category.html'
+
+class EquipmentCategory(TemplateView):
+    template_name = 'equipment_category.html'
+
+class EquipmentReport(TemplateView):
+    template_name = 'equipment_report.html'
+
+class ChemicalReport(TemplateView):
+    template_name = 'chemical_report.html'
  
