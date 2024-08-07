@@ -30,6 +30,7 @@
             </div>
             <div class="card-body">
                 <form method="post">
+                    {% csrf_token %}
                     {% for input in form %}
                        <div class="form-group">
                             <label for="{{ input.id_for_label }}">{{ input.label }}</label>

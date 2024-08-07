@@ -4,6 +4,9 @@ class EquipmentCategory(models.Model):
     category_name = models.CharField(max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name_plural = 'Equipment Categories'
+
 class Equipment(models.Model):
     equipment_name = models.CharField(max_length=100,help_text="Enter the equipment name.")
     equipment_model = models.CharField(max_length=100,help_text="Enter the equipment model.")

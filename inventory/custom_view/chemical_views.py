@@ -22,7 +22,7 @@ class ChemicalReport(TemplateView):
 class AddChemicalCategoryView(CreateView):
     template_name = 'forms/add_form.html'
     model = ChemicalCategory
-    success_url = reverse_lazy('chemical_category')
+    success_url = reverse_lazy('inventory:chemical_category')
     form_class = ChemicalCategoryForm
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
