@@ -6,10 +6,5 @@ from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
 
-class DashboardPage(TemplateView):
-    template_name = 'dashboard.html'
-
 class UserList(ListView):
     template_name = 'user.html'
-
-
