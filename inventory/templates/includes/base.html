@@ -20,16 +20,24 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+            <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
         </div>
         {% include './navbar.html' %}
         {% include './sidebar.html' %}
-        {% block site_breadcrumbs %}{% endblock %}
-        <section class="content">
-            <div class="container-fluid">
-                {% block content %}{% endblock %}
-            </div>
-        </section>
+        <div class="content-wrapper">
+            {% block site_breadcrumbs %}{% endblock %}
+            <section class="content">
+                <div class="container-fluid">
+                    {% block content %}{% endblock %}
+                </div>
+            </section>
+            <!-- Control Sidebar -->
+        </div>
+        {% include './footer.html' %}
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
