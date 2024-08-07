@@ -57,10 +57,10 @@
                                 <td>{{ chemical.chemical_category }}</td>
                                 <td>{{ chemical.expiration_date }}</td>
                                 <td>
-                                    <a href="" class="text-success">
+                                    <a href="{% url 'inventory:update_chemical' chemical_id=chemical.id %}" class="text-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a href="" class="text-danger">
+                                    <a href="{% url 'inventory:delete_chemical' chemical_id=chemical.id %}" class="text-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
                                 </td>

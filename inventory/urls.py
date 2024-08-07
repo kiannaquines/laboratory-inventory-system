@@ -15,25 +15,28 @@ urlpatterns = [
     # Dashboard Urls
     path('',DashboardPage.as_view(),name="dashboard"),
     
-    # List Urls
-
+    # Equipment Urls
+    path('equipments/add/', AddEquipmentView.as_view(), name='add_equipment'),
+    path('equipments/category/add', AddEquipmentCategoryView.as_view(), name='add_equipment_category'),
     path('equipments/',EquipmentListView.as_view(),name="equipments"),
     path('equipments/category',EquipmentCategoryView.as_view(),name="equipment_category"),
     path('equipments/report',EquipmentReportView.as_view(),name="equipment_report"),
 
-    path('chemicals/',ChemicalList.as_view(),name="chemicals"),
-    path('chemicals/category',ChemicalCategory.as_view(),name="chemical_category"),
-    path('chemicals/report',ChemicalReport.as_view(),name="chemical_report"),
-    
-    # Create Urls
+    # Chemicals Urls
+    path('chemicals/',ChemicalListView.as_view(),name="chemicals"),
+    path('chemicals/report',ChemicalReportView.as_view(),name="chemical_report"),    
     path('chemicals/add/', AddChemicalView.as_view(), name='add_chemical'),
-    path('chemicals/category/add/', AddChemicalCategoryView.as_view(), name='add_chemical_category'),
-    path('equipments/add/', AddEquipmentView.as_view(), name='add_equipment'),
-    path('equipments/category/add', AddEquipmentCategoryView.as_view(), name='add_equipment_category'),
+    path('chemicals/update/<int:chemical_id>', UpdateChemicalView.as_view(), name='update_chemical'),
+    path('chemicals/delete/<int:chemical_id>', DeleteChemicalView.as_view(), name='delete_chemical'),
 
+    path('chemicals/category',ChemicalCategoryView.as_view(),name="chemical_category"),
+    path('chemicals/category/add/', AddChemicalCategoryView.as_view(), name='add_chemical_category'),
+    path('chemicals/category/update/<int:chemical_category_id>', UpdateChemicalCategoryView.as_view(), name='update_chemical_category'),
+    path('chemicals/category/delete/<int:chemical_category_id>', DeleteChemicalCategoryView.as_view(), name='delete_chemical_category'),
+
+    # Users Urls
     path('users/',UserList.as_view(),name="users"),
     path('users/add/', AddUserView.as_view(), name="add_user"),
-    # Update Urls
 
     # Delete Urls
 ]

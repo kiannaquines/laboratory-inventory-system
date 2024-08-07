@@ -43,15 +43,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for chemical in chemical_categories %}
+                            {% for category in chemical_categories %}
                             <tr>
-                                <td>{{ chemical.category_name }}</td>
-                                <td>{{ chemical.date_added }}</td>
+                                <td>{{ category.category_name }}</td>
+                                <td>{{ category.date_added }}</td>
                                 <td>
-                                    <a href="" class="text-success">
+                                    <a href="{% url 'inventory:update_chemical_category' chemical_category_id=category.id %}" class="text-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <a href="" class="text-danger">
+                                    <a href="{% url 'inventory:delete_chemical_category' chemical_category_id=category.id %}" class="text-danger">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
                                 </td>
