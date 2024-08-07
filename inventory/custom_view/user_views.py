@@ -5,6 +5,8 @@ from inventory.models import *
 from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
+from django.contrib.auth.models import User as DefaultUser
 
 class UserList(ListView):
     template_name = 'user.html'
+    model = DefaultUser

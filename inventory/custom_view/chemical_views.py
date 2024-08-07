@@ -11,6 +11,8 @@ class ChemicalList(TemplateView):
 
 class ChemicalCategory(ListView):
     template_name = 'chemical_category.html'
+    model = ChemicalCategory
+    context_object_name = 'chemical_categories'    
 
 
 class ChemicalReport(TemplateView):

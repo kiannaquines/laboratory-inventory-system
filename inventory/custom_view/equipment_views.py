@@ -10,11 +10,12 @@ from typing import Any
 class EquipmentList(ListView):
     template_name = 'equipment.html'
     model = Equipment
-    paginate_by = 10
     context_object_name = 'chemicals'
 
 class EquipmentCategory(ListView):
     template_name = 'equipment_category.html'
+    model = EquipmentCategory
+    context_object_name = 'equipment_categories'
 
 class EquipmentReport(TemplateView):
     template_name = 'equipment_report.html'
