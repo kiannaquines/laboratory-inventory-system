@@ -26,7 +26,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3>150</h3>
+                <h3>{{ total_equipments }}</h3>
                 <p>Equipments</p>
             </div>
             <div class="icon">
@@ -42,8 +42,7 @@
         <div class="small-box bg-success">
             <div class="inner">
                 <h3>
-                    53
-                    <sup style="font-size: 20px">%</sup>
+                    {{ total_chemicals }}
                 </h3>
                 <p>Chemicals</p>
             </div>
@@ -59,7 +58,7 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-warning">
             <div class="inner">
-                <h3>44</h3>
+                <h3>{{ total_users }}</h3>
                 <p>Users</p>
             </div>
             <div class="icon">
@@ -101,104 +100,31 @@
                     <table id="datatable-container" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Equipment Name</th>
-                                <th>Category</th>
+                                <th>Equipment</th>
                                 <th>Model</th>
-                                <th>Serial</th>
-                                <th>Purchase Date</th>
-                                <th>Purchase Price</th>
+                                <th>Model No.</th>
+                                <th>Cost</th>
+                                <th>Category</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for equipment in latest_equipments %}
                             <tr>
-                                <td>Centrifuge</td>
-                                <td>Separation Equipment</td>
-                                <td>Eppendorf 5424R</td>
-                                <td>EP5424R-2021-08</td>
-                                <td>2021-08-15</td>
-                                <td>$5,999.99</td>
+                                <td>{{ equipment.equipment_name }}</td>
+                                <td>{{ equipment.equipment_model }}</td>
+                                <td>{{ equipment.equipment_model_number }}</td>
+                                <td>{{ equipment.equipment_model_cost }}</td>
+                                <td>{{ equipment.equipment_category }}</td>
                             </tr>
-                            <tr>
-                                <td>Microscope</td>
-                                <td>Optical Equipment</td>
-                                <td>Nikon Eclipse Ci-L</td>
-                                <td>NE-CIL-2022-03</td>
-                                <td>2022-03-22</td>
-                                <td>$3,499.00</td>
-                            </tr>
-                            <tr>
-                                <td>PCR Thermal Cycler</td>
-                                <td>Molecular Biology</td>
-                                <td>Bio-Rad CFX96</td>
-                                <td>BR-CFX96-2020-11</td>
-                                <td>2020-11-05</td>
-                                <td>$7,850.00</td>
-                            </tr>
-                            <tr>
-                                <td>Spectrophotometer</td>
-                                <td>Analytical Equipment</td>
-                                <td>Thermo Scientific NanoDrop One</td>
-                                <td>TS-NDO-2023-01</td>
-                                <td>2023-01-10</td>
-                                <td>$9,200.00</td>
-                            </tr>
-                            <tr>
-                                <td>pH Meter</td>
-                                <td>Analytical Equipment</td>
-                                <td>Mettler Toledo SevenCompact</td>
-                                <td>MT-SC-2022-09</td>
-                                <td>2022-09-30</td>
-                                <td>$1,299.99</td>
-                            </tr>
-                            <tr>
-                                <td>Autoclave</td>
-                                <td>Sterilization Equipment</td>
-                                <td>Tuttnauer 3870EA</td>
-                                <td>TT-3870EA-2021-06</td>
-                                <td>2021-06-18</td>
-                                <td>$12,500.00</td>
-                            </tr>
-                            <tr>
-                                <td>Incubator</td>
-                                <td>Cell Culture Equipment</td>
-                                <td>Thermo Scientific Heracell 150i</td>
-                                <td>TS-HC150I-2022-12</td>
-                                <td>2022-12-03</td>
-                                <td>$8,995.00</td>
-                            </tr>
-                            <tr>
-                                <td>HPLC System</td>
-                                <td>Chromatography</td>
-                                <td>Agilent 1260 Infinity II</td>
-                                <td>AG-1260II-2023-02</td>
-                                <td>2023-02-14</td>
-                                <td>$45,000.00</td>
-                            </tr>
-                            <tr>
-                                <td>Analytical Balance</td>
-                                <td>Weighing Equipment</td>
-                                <td>Sartorius Entris II BCE224i-1S</td>
-                                <td>ST-E2BCE224-2021-10</td>
-                                <td>2021-10-20</td>
-                                <td>$2,199.00</td>
-                            </tr>
-                            <tr>
-                                <td>Rotary Evaporator</td>
-                                <td>Separation Equipment</td>
-                                <td>Buchi Rotavapor R-300</td>
-                                <td>BC-R300-2022-07</td>
-                                <td>2022-07-08</td>
-                                <td>$6,500.00</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Equipment Name</th>
-                                <th>Category</th>
+                                <th>Equipment</th>
                                 <th>Model</th>
-                                <th>Serial</th>
-                                <th>Purchase Date</th>
-                                <th>Purchase Price</th>
+                                <th>Model No.</th>
+                                <th>Cost</th>
+                                <th>Category</th>
                             </tr>
                         </tfoot>
                     </table>

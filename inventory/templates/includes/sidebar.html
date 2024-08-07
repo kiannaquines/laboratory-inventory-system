@@ -20,7 +20,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{% url 'inventory:dashboard' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+            <a href="{% url 'inventory:dashboard' %}" class="nav-link {% if request.path == '/' %}bg-primary{% endif %}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item {% if request.path == '/equipments/' or request.path == '/equipments/category' %}menu-is-opening menu-open{% endif %}">
-            <a href="#" class="nav-link {% if request.path == '/equipments/' %}menu-is-opening menu-open active{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/equipments/' %}bg-primary{% endif %}">
               <i class="nav-icon fa-solid fa-toolbox"></i>
               <p>
                 Equipment
@@ -51,7 +51,7 @@
             </ul>
           </li>
           <li class="nav-item {% if request.path == '/chemicals/' or request.path == '/chemicals/category'%}menu-is-opening menu-open{% endif %}">
-            <a href="#" class="nav-link {% if request.path == '/chemicals/' or request.path == '/chemicals/category' %}menu-is-opening menu-open active{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/chemicals/' or request.path == '/chemicals/category' %}bg-primary{% endif %}">
               <i class="nav-icon fa-solid fa-flask-vial"></i>
               <p>
                 Chemicals
@@ -74,7 +74,7 @@
             </ul>
           </li>
           <li class="nav-item {% if request.path == '/users/' %}menu-is-opening menu-open{% endif %}">
-            <a href="#" class="nav-link {% if request.path == '/users/' %}menu-is-opening menu-open active{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/users/' %}bg-primary{% endif %}">
               <i class="nav-icon fa-solid fa-users"></i>
               <p>
                 Users
@@ -91,7 +91,7 @@
             </ul>
           </li>
           <li class="nav-item  {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}menu-is-opening menu-open{% endif %}">
-            <a href="#" class="nav-link {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}active{% endif %}">
+            <a href="#" class="nav-link {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}bg-primary{% endif %}">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Reports

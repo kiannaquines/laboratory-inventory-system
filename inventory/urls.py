@@ -16,7 +16,6 @@ urlpatterns = [
     path('',DashboardPage.as_view(),name="dashboard"),
     
     # List Urls
-    path('users/',UserList.as_view(),name="users"),
 
     path('equipments/',EquipmentListView.as_view(),name="equipments"),
     path('equipments/category',EquipmentCategoryView.as_view(),name="equipment_category"),
@@ -31,6 +30,9 @@ urlpatterns = [
     path('chemicals/category/add/', AddChemicalCategoryView.as_view(), name='add_chemical_category'),
     path('equipments/add/', AddEquipmentView.as_view(), name='add_equipment'),
     path('equipments/category/add', AddEquipmentCategoryView.as_view(), name='add_equipment_category'),
+
+    path('users/',UserList.as_view(),name="users"),
+    path('users/add/', AddUserView.as_view(), name="add_user"),
     # Update Urls
 
     # Delete Urls

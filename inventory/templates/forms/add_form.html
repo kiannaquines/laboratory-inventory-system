@@ -32,11 +32,19 @@
                 <form method="post">
                     {% csrf_token %}
                     {% for input in form %}
-                       <div class="form-group">
+                       {% if input.id_for_label == "id_is_staff"  or input.id_for_label == "id_is_superuser" or input.id_for_label == "id_is_active"%}
+                       <div class="custom-control custom-checkbox">
+                           {{ input }}
+                            <label for="{{ input.id_for_label }}" class="custom-control-label">{{ input.label }}</label>
+                            <span class="text-muted text-sm d-block">{{ input.help_text }}</span>
+                        </div>
+                        {% else %}
+                        <div class="form-group">
                             <label for="{{ input.id_for_label }}">{{ input.label }}</label>
                             {{ input }}
                             <span class="text-muted text-sm">{{ input.help_text }}</span>
                        </div>
+                       {% endif %}
                     {% endfor %}
                     <button type="submit" class="btn btn-primary">{{ button_name }}</button>
                 </form>
