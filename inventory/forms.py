@@ -42,12 +42,17 @@ class ChemicalForm(forms.ModelForm):
         super(ChemicalForm,self).__init__(*args, **kwargs)
         
         for field_name, field in self.fields.items():
-            field.widget.attrs.update({
-                'class': 'form-control',
-                'placeholder': field.label,
-                'spellcheck': 'false',
-                'required': field.required
-            })
+            if field_name == 'availability':
+                field.widget.attrs.update({
+                    'class': 'custom-control-input',
+                })
+            else:
+                field.widget.attrs.update({
+                    'class': 'form-control',
+                    'placeholder': field.label,
+                    'spellcheck': 'false',
+                    'required': field.required
+                })
 
     class Meta:
         model = Chemicals

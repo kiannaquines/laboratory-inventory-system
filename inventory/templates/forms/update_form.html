@@ -33,21 +33,29 @@
                     {% csrf_token %}
                     {% for input in form %}
                        {% if input.id_for_label == "id_is_staff"  or input.id_for_label == "id_is_superuser" or input.id_for_label == "id_is_active"%}
-                       <div class="custom-control custom-checkbox">
-                           {{ input }}
-                            <label for="{{ input.id_for_label }}" class="custom-control-label">{{ input.label }}</label>
-                            <span class="text-muted text-sm d-block">{{ input.help_text }}</span>
-                        </div>
-                        {% else %}
-                        <div class="form-group">
-                            <label for="{{ input.id_for_label }}">{{ input.label }}</label>
-                            {{ input }}
-                            <span class="text-muted text-sm">{{ input.help_text }}</span>
-                       </div>
-                       {% endif %}
+                    <div class="custom-control custom-checkbox">
+                        {{ input }}
+                        <label for="{{ input.id_for_label }}" class="custom-control-label">{{ input.label }}</label>
+                        <span class="text-muted text-sm d-block">{{ input.help_text }}</span>
+                    </div>
+                    {% elif input.id_for_label == "id_availability"%}
+                    <div class="custom-control custom-checkbox">
+                        {{ input }}
+                        <label for="{{ input.id_for_label }}" class="custom-control-label">{{ input.label }}</label>
+                        <span class="text-muted text-sm d-block">{{ input.help_text }}</span>
+                    </div>
+                    {% else %}
+                    <div class="form-group">
+                        <label for="{{ input.id_for_label }}">{{ input.label }}</label>
+                        {{ input }}
+                        <span class="text-muted text-sm">{{ input.help_text }}</span>
+                    </div>
+                    {% endif %}
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary">{{ button_name }}</button>
-                    <button onclick="back()" type="button" class="btn btn-success">{{ back_button }}</button>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary">{{ button_name }}</button>
+                        <button onclick="back()" type="button" class="btn btn-success">{{ back_button }}</button>
+                    </div>
                 </form>
             </div>
         </div>
