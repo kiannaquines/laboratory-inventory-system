@@ -92,7 +92,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title font-weight-bold">
-                    Latest Equipments
+                    {{ header_title }}
                 </h3>
             </div>
             <div class="card-body">
@@ -100,31 +100,31 @@
                     <table id="datatable-container" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Equipment</th>
-                                <th>Model</th>
-                                <th>Model No.</th>
-                                <th>Cost</th>
+                                <th>Chemical</th>
+                                <th>Composition</th>
+                                <th>Quantity</th>
                                 <th>Category</th>
+                                <th>Expiration Date</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for equipment in latest_equipments %}
+                            {% for chemical in latest_chemicals %}
                             <tr>
-                                <td>{{ equipment.equipment_name }}</td>
-                                <td>{{ equipment.equipment_model }}</td>
-                                <td>{{ equipment.equipment_model_number }}</td>
-                                <td>{{ equipment.equipment_model_cost }}</td>
-                                <td>{{ equipment.equipment_category }}</td>
+                                <td>{{ chemical.name }}</td>
+                                <td>{{ chemical.composition }}</td>
+                                <td>{{ chemical.quantity }}</td>
+                                <td>{{ chemical.chemical_category }}</td>
+                                <td>{{ chemical.expiration_date }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Equipment</th>
-                                <th>Model</th>
-                                <th>Model No.</th>
-                                <th>Cost</th>
+                                <th>Chemical</th>
+                                <th>Composition</th>
+                                <th>Quantity</th>
                                 <th>Category</th>
+                                <th>Expiration Date</th>
                             </tr>
                         </tfoot>
                     </table>
