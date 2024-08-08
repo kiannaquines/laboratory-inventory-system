@@ -31,6 +31,7 @@ class AddEquipmentCategoryView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Add Equipment Category'
         context['button_name'] = 'Save Equipment Category'
+        context['back_button'] = 'Back to Equipments'
         return context
 
 class AddEquipmentView(LoginRequiredMixin, CreateView):
@@ -47,6 +48,7 @@ class AddEquipmentView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Add Equipment'
         context['button_name'] = 'Save Equipment'
+        context['back_button'] = 'Back to Equipments'
         return context
     
 class EquipmentReportView(LoginRequiredMixin, TemplateView):

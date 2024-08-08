@@ -34,6 +34,7 @@ class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Add Chemical Category'
         context['button_name'] = 'Save Chemical Category'
+        context['back_button'] = 'Back to Chemical Category List'
         return context
     
 class AddChemicalView(LoginRequiredMixin, CreateView):
@@ -50,6 +51,7 @@ class AddChemicalView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Add Chemical'
         context['button_name'] = 'Save Chemical'
+        context['back_button'] = 'Back to Chemical List'
         return context
 
 class UpdateChemicalView(LoginRequiredMixin, UpdateView):
@@ -63,6 +65,7 @@ class UpdateChemicalView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Update Chemical'
         context['button_name'] = 'Update Chemical'
+        context['back_button'] = 'Back to Chemical List'
         return context
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
@@ -80,7 +83,7 @@ class DeleteChemicalView(LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Delete Chemical'
         context['button_name'] = 'Delete Chemical'
-        context['back_button'] = 'Back'
+        context['back_button'] = 'Back to Chemical List'
         return context
 
 
@@ -95,6 +98,7 @@ class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Update Chemical Category'
         context['button_name'] = 'Update Chemical Category'
+        context['back_button'] = 'Back to Chemical Categories'
         return context
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
@@ -111,7 +115,7 @@ class DeleteChemicalCategoryView(LoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Delete Chemical Category'
         context['button_name'] = 'Delete Chemical Category'
-        context['back_button'] = 'Back'
+        context['back_button'] = 'Back to Chemical Categories'
         return context
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
