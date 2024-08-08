@@ -45,10 +45,39 @@ class Chemicals(models.Model):
         ('gas', 'Gas'),
     )
 
+    chemical_units_category = (
+        ('g', 'Gram'),
+        ('mg', 'Milligram'),
+        ('μg', 'Microgram'),
+        ('kg', 'Kilogram'),
+        ('L', 'Liter'),
+        ('mL', 'Milliliter'),
+        ('μL', 'Microliter'),
+        ('mol', 'Mole'),
+        ('mmol', 'Millimole'),
+        ('μmol', 'Micromole'),
+        ('M', 'Molarity'),
+        ('m', 'Molality'),
+        ('X', 'Mole fraction'),
+        ('ppm', 'Parts per million'),
+        ('ppb', 'Parts per billion'),
+        ('J', 'Joule'),
+        ('kJ', 'Kilojoule'),
+        ('eV', 'Electronvolt'),
+        ('°C', 'Degrees Celsius'),
+        ('°F', 'Degrees Fahrenheit'),
+        ('K', 'Kelvin'),
+        ('Pa', 'Pascal'),
+        ('kPa', 'Kilopascal'),
+        ('atm', 'Atmosphere'),
+        ('mmHg', 'Millimeters of mercury')
+    )
+
     name = models.CharField(max_length=200,help_text="Enter the chemical name.")
     composition = models.CharField(max_length=10, choices=chemical_composition,help_text="Select the chemical composition.")
     quantity = models.IntegerField(help_text="Enter the quantity of the chemical.")
     chemical_category = models.ForeignKey(ChemicalCategory, on_delete=models.CASCADE,help_text="Select the chemical category.")
+    chemical_units = models.CharField(max_length=10, choices=chemical_units_category,null=True, blank=True, help_text="Select the chemical units.")
     expiration_date = models.DateField(auto_now_add=False,name="",help_text="Enter the expiration date of the chemical.")
 
     class Meta:
