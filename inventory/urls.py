@@ -4,6 +4,7 @@ from inventory.custom_view.auth_views import *
 from inventory.custom_view.user_views import *
 from inventory.custom_view.equipment_views import *
 from inventory.custom_view.chemical_views import *
+from django.contrib.auth import views as auth_views
 
 app_name = 'inventory'
 
@@ -11,10 +12,10 @@ urlpatterns = [
 
     # Auth Urls
     path('register/', RegisterPage.as_view(), name="register"),
-    
+    path('logout/',logout_view, name='app_logout'),
     # Dashboard Urls
     path('',DashboardPage.as_view(),name="dashboard"),
-    
+
     # Equipment Urls
     path('equipments/add/', AddEquipmentView.as_view(), name='add_equipment'),
     path('equipments/category/add', AddEquipmentCategoryView.as_view(), name='add_equipment_category'),

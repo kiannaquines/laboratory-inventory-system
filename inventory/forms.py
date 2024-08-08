@@ -4,6 +4,18 @@ from inventory.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as DefaultUser
 
+class RegisterForm(UserCreationForm):
+    def __init__(self,*args,**kwargs):
+        super(RegisterForm, self).__init__(*args,**kwargs)
+        self.fields['username'].widget.attrs.update({'class':'form-control','placeholder': 'Username'})
+        self.fields['first_name'].widget.attrs.update({'class':'form-control','placeholder': 'First Name'})
+        self.fields['last_name'].widget.attrs.update({'class':'form-control', 'placeholder': 'Last Name'})
+        self.fields['password1'].widget.attrs.update({'class':'form-control', 'placeholder': 'Password'})
+        self.fields['password2'].widget.attrs.update({'class':'form-control','placeholder': 'Confirm Password'})
+    class Meta:
+        model = DefaultUser
+        fields = ['username','first_name','last_name','password1','password2']
+
 class UserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -24,7 +36,6 @@ class UserForm(UserCreationForm):
     class Meta:
         model = DefaultUser
         fields = ['username','first_name','last_name','email','is_staff','is_superuser','is_active','password1', 'password2']
-
 
 class ChemicalForm(forms.ModelForm):
     def __init__(self,*args, **kwargs):
