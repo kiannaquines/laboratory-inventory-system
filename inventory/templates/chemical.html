@@ -44,6 +44,7 @@
                                 <th>Composition</th>
                                 <th>Quantity</th>
                                 <th>Category</th>
+                                <th>Unit</th>
                                 <th>Expiration Date</th>
                                 <th>Action</th>
                             </tr>
@@ -51,11 +52,16 @@
                         <tbody>
                             {% for chemical in chemicals %}
                             <tr>
-                                <td>{{ chemical.name }}</td>
-                                <td>{{ chemical.composition }}</td>
-                                <td>{{ chemical.quantity }}</td>
-                                <td>{{ chemical.chemical_category }}</td>
-                                <td>{{ chemical.expiration_date }}</td>
+                                <td>{{ chemical.name|default:"-" }}</td>
+                                <td>{{ chemical.composition|default:"-" }}</td>
+                                <td>{{ chemical.quantity|default:"-" }}</td>
+                                <td>{{ chemical.chemical_category|default:"-" }}</td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ chemical.chemical_units|default:"-" }}
+                                    </span>
+                                </td>
+                                <td>{{ chemical.expiration_date|default:"-" }}</td>
                                 <td>
                                     <a href="{% url 'inventory:update_chemical' chemical_id=chemical.id %}" class="text-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
@@ -73,6 +79,7 @@
                                 <th>Composition</th>
                                 <th>Quantity</th>
                                 <th>Category</th>
+                                <th>Unit</th>
                                 <th>Expiration Date</th>
                                 <th>Action</th>
                             </tr>
