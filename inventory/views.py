@@ -15,6 +15,7 @@ class DashboardPage(LoginRequiredMixin, TemplateView):
         context['total_chemicals'] = Chemicals.objects.count()
         context['total_users'] = DefaultUser.objects.count()
         context['latest_chemicals'] = Chemicals.objects.all()[:10]
+        context['available_chemicals'] = Chemicals.objects.filter(availability=True).count()
         context['header_title'] = '10 Latest Chemicals'
         return self.render_to_response(context)
 
