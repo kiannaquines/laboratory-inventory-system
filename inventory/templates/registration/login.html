@@ -41,7 +41,14 @@
     </div>
 </div>
 <script>
-    document.querySelector("#id_username").className = "form-control"
-    document.querySelector("#id_password").className = "form-control"
+    var username = document.querySelector("#id_username")
+    var password = document.querySelector("#id_password")
+
+    username.className = "form-control"
+    username.setAttribute('placeholder','Username')
+
+    password.className = "form-control"
+    password.setAttribute('placeholder','Password')
+
 </script>
 {% endblock %}
