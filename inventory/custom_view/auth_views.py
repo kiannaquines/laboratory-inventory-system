@@ -1,6 +1,6 @@
 from typing import Any
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import TemplateView,CreateView
+from django.contrib.auth.views import LoginView
+from django.views.generic import CreateView
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User as DefaultUser
