@@ -86,7 +86,6 @@ class DeleteChemicalView(LoginRequiredMixin, DeleteView):
         context['back_button'] = 'Back to Chemical List'
         return context
 
-
 class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
     model = ChemicalCategory
     form_class = ChemicalCategoryForm
