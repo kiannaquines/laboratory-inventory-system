@@ -11,7 +11,7 @@
                     <li class="breadcrumb-item">
                         <a href="#">Home</a>
                     </li>
-                    <li class="breadcrumb-item active">Chemical Report</li>
+                    <li class="breadcrumb-item active">{{ header_title }}</li>
                 </ol>
             </div>
         </div>
@@ -21,6 +21,22 @@
 {% block content %}
 <div class="row">
     <section class="col-lg-12 connectedSortable">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold">
+                    Report Filter
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {{ form_filter.as_p }}
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Download Chemica Report</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title font-weight-bold">
