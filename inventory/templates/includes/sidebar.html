@@ -27,29 +27,6 @@
               </p>
             </a>
           </li>
-          <!-- <li class="nav-item {% if request.path == '/equipments/' or request.path == '/equipments/category' %}menu-is-opening menu-open{% endif %}">
-            <a href="#" class="nav-link {% if request.path == '/equipments/' %}bg-primary{% endif %}">
-              <i class="nav-icon fa-solid fa-toolbox"></i>
-              <p>
-                Equipment
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'inventory:equipments' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Equipment List</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'inventory:equipment_category' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
           <li class="nav-item {% if request.path == '/chemicals/' or request.path == '/chemicals/category'%}menu-is-opening menu-open{% endif %}">
             <a href="#" class="nav-link {% if request.path == '/chemicals/' or request.path == '/chemicals/category' %}bg-primary{% endif %}">
               <i class="nav-icon fa-solid fa-flask-vial"></i>
@@ -103,12 +80,6 @@
                 <a href="{% url 'inventory:chemical_report' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Chemicals</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'inventory:equipment_report' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Equipment</p>
                 </a>
               </li>
             </ul>
