@@ -1,7 +1,7 @@
 from typing import Any
 from django.http.response import HttpResponse as HttpResponse
 from django.views.generic import TemplateView
-from inventory.models import Chemicals, Equipment,ChemicalCategory
+from inventory.models import Chemicals,ChemicalCategory
 from inventory.forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as DefaultUser

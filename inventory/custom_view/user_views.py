@@ -7,6 +7,7 @@ from inventory.forms import *
 from typing import Any
 from django.contrib.auth.models import User as DefaultUser
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 class UserList(LoginRequiredMixin, ListView):
     template_name = 'user.html'
@@ -26,6 +27,11 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
         context['button_name'] = 'Update User'
         context['back_button'] = 'Back to Users'
         return context
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! User updated successfully.',extra_tags='success')
+        return response
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = DefaultUser
@@ -40,6 +46,11 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         context['back_button'] = 'Back to Users'
         return context
     
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        response = super().form_valid(form)
+        messages.success(self.request, 'User removed successfully.',extra_tags='success')
+        return response
+    
 class AddUserView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = DefaultUser
@@ -48,6 +59,7 @@ class AddUserView(LoginRequiredMixin, CreateView):
 
     def forms_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().forms_valid(form)
+        messages.success(self.request, 'Yahooo! User added successfully.',extra_tags='success')
         return response
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:

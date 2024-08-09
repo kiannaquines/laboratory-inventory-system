@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 class ChemicalListView(LoginRequiredMixin, ListView):
     template_name = 'chemical.html'
@@ -28,6 +29,7 @@ class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! Chemical Category added successfully.',extra_tags='success')
         return response
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -45,6 +47,7 @@ class AddChemicalView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! Chemical added successfully.',extra_tags='success')
         return response
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -70,6 +73,7 @@ class UpdateChemicalView(LoginRequiredMixin, UpdateView):
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! Chemical updated successfully.',extra_tags='success')
         return response
 
 class DeleteChemicalView(LoginRequiredMixin, DeleteView):
@@ -85,6 +89,11 @@ class DeleteChemicalView(LoginRequiredMixin, DeleteView):
         context['button_name'] = 'Delete Chemical'
         context['back_button'] = 'Back to Chemical List'
         return context
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        response = super().form_valid(form)
+        messages.success(self.request, 'Chemical removed successfully.',extra_tags='success')
+        return response
 
 class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
     model = ChemicalCategory
@@ -102,6 +111,7 @@ class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
+        messages.success(self.request, 'Chemical Category updated successfully.',extra_tags='success')
         return response
     
 class DeleteChemicalCategoryView(LoginRequiredMixin, DeleteView):
@@ -119,4 +129,5 @@ class DeleteChemicalCategoryView(LoginRequiredMixin, DeleteView):
     
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         response = super().form_valid(form)
+        messages.success(self.request, 'Chemical Category removed successfully.',extra_tags='success')
         return response
