@@ -1,6 +1,6 @@
 from django.forms import BaseModelForm
 from django.http import HttpResponse
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from inventory.models import *
 from django.urls import reverse_lazy
 from inventory.forms import *
@@ -18,9 +18,16 @@ class ChemicalCategoryView(LoginRequiredMixin, ListView):
     model = ChemicalCategory
     context_object_name = 'chemical_categories'    
 
-class ChemicalReportView(LoginRequiredMixin, TemplateView):
+class ChemicalReportView(LoginRequiredMixin, ListView):
     template_name = 'chemical_report.html'
+    model = Chemicals
+    context_object_name = 'chemicals'
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['header_title'] = 'Chemical Report List'
+        return context
+    
 class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
     template_name = 'forms/add_form.html'
     model = ChemicalCategory
