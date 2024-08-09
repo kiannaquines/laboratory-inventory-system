@@ -10,8 +10,7 @@ class RegisterForm(UserCreationForm):
         self.fields['username'].widget.attrs.update({'class':'form-control','placeholder': 'Username'})
         self.fields['first_name'].widget.attrs.update({'class':'form-control','placeholder': 'First Name'})
         self.fields['last_name'].widget.attrs.update({'class':'form-control', 'placeholder': 'Last Name'})
-        self.fields['password1'].widget.attrs.update({'class':'form-control', 'placeholder': 'Password'})
-        self.fields['password2'].widget.attrs.update({'class':'form-control','placeholder': 'Confirm Password'})
+       
     class Meta:
         model = DefaultUser
         fields = ['username','first_name','last_name','password1','password2']
@@ -36,6 +35,28 @@ class UserForm(UserCreationForm):
     class Meta:
         model = DefaultUser
         fields = ['username','first_name','last_name','email','is_staff','is_superuser','is_active','password1', 'password2']
+
+class UserUpdateForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+
+            if field_name == 'is_staff' or field_name == 'is_superuser' or field_name == 'is_active':
+                field.widget.attrs.update({
+                    'class': 'custom-control-input',
+                })
+            else:
+                field.widget.attrs.update({
+                    'class': 'form-control',
+                    'placeholder': field.label,
+                    'spellcheck': 'false',
+                    'required': field.required
+                })
+
+    class Meta:
+        model = DefaultUser
+        fields = ['username','first_name','last_name','email','is_staff','is_superuser','is_active',]
+        exclude = ['password1', 'password2',]
 
 class ChemicalForm(forms.ModelForm):
     def __init__(self,*args, **kwargs):

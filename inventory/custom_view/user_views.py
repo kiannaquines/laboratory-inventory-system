@@ -16,7 +16,7 @@ class UserList(LoginRequiredMixin, ListView):
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):
     model = DefaultUser
-    form_class = UserForm
+    form_class = UserUpdateForm
     template_name = 'forms/update_form.html'
     success_url = reverse_lazy('inventory:users')
     pk_url_kwarg = 'user_id'
@@ -42,7 +42,7 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Delete User'
-        context['button_name'] = 'Dlete User'
+        context['button_name'] = 'Delete User'
         context['back_button'] = 'Back to Users'
         return context
     
