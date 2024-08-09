@@ -28,6 +28,10 @@
                 </h3>
             </div>
             <div class="card-body">
+                {{ form.non_field_errors }}
+                {{ form.date_from.errors }}
+                {{ form.date_from.label_tag }}
+                
                 <form action="{% url 'inventory:generate_report' %}" method="post">
                     {% csrf_token %}
                     {% for input in form_filter %}

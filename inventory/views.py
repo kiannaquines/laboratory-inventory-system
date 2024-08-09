@@ -1,5 +1,6 @@
 from typing import Any
 from django.http.response import HttpResponse as HttpResponse
+from django.shortcuts import render
 from django.views.generic import TemplateView
 from inventory.models import Chemicals,ChemicalCategory
 from inventory.forms import *
@@ -22,6 +23,7 @@ class DashboardPage(LoginRequiredMixin, TemplateView):
 
 
 def generate_report(request):
+    context = {}
     if request.method == 'POST':
         generate_report_form = FilterReportForm(request.POST)
         if generate_report_form.is_valid():
@@ -33,6 +35,13 @@ def generate_report(request):
             if chemical_category:
                 print('Chemical Category')
             return HttpResponse('Report generated successfully')
+        
+        else:
+            context['chemicals'] = Chemicals.objects.all()
+            context['header_title'] = 'Chemical Report List'
+            context['button_name'] = 'Generate Report'
+            context['form_filter'] = generate_report_form
+            return render(request, 'chemical_report.html',context)
     
 
 

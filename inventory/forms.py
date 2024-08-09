@@ -11,28 +11,43 @@ class FilterReportForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
         empty_label="Select Chemical Category",
+        error_messages={
+            "required": "Chemical category field is required."
+        },
     )
 
     chemical_units = forms.ChoiceField(
         choices=Chemicals.chemical_units_category,
-        required=False,
+        required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
+        error_messages={
+            "required": "Chemical unit field is required."
+        },
     )
 
     date_from = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
+        error_messages={
+            'invalid': 'Enter a valid start date.',
+        }
     )
 
     date_to = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
+        error_messages={
+            'invalid': 'Enter a valid start date.',
+        }
     )
 
     available_chemical = forms.BooleanField(
-        required=False,
-        label="Available Chemical",
+        required=True,
+        label="Only Available Chemical",
         widget=forms.CheckboxInput(attrs={"class": "custom-control-input"}),
+        error_messages={
+            "required": "Chemical availability field is required."
+        },
     )
 
     class Meta:
