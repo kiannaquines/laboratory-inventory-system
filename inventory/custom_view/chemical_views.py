@@ -27,6 +27,7 @@ class ChemicalReportView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['header_title'] = 'Chemical Report List'
         context['form_filter'] = FilterReportForm()
+        context['button_name'] = 'Generate Report'
         return context
     
 class AddChemicalCategoryView(LoginRequiredMixin, CreateView):

@@ -8,9 +8,9 @@ class FilterReportForm(forms.Form):
 
     chemical_category = forms.ModelChoiceField(
         queryset=ChemicalCategory.objects.all(),
-        required=False,
+        required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
-        empty_label='Select Chemical Category',
+        empty_label="Select Chemical Category",
     )
 
     chemical_units = forms.ChoiceField(
@@ -29,8 +29,20 @@ class FilterReportForm(forms.Form):
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
     )
 
+    available_chemical = forms.BooleanField(
+        required=False,
+        label="Available Chemical",
+        widget=forms.CheckboxInput(attrs={"class": "custom-control-input"}),
+    )
+
     class Meta:
-        fields = ["chemical_category", "chemical_units", "date_from", "date_to"]
+        fields = [
+            "chemical_category",
+            "chemical_units",
+            "date_from",
+            "date_to",
+            "available_chemical",
+        ]
 
 
 class RegisterForm(UserCreationForm):

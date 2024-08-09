@@ -42,6 +42,8 @@
                                 <th>Firstname</th>
                                 <th>Lastname</th>
                                 <th>Email</th>
+                                <th>User Type</th>
+                                <th>Super User</th>
                                 <th>Date Joined</th>
                                 <th>Action</th>
                             </tr>
@@ -53,6 +55,16 @@
                                 <td>{{ user.first_name|default:"-" }}</td>
                                 <td>{{ user.last_name|default:"-" }}</td>
                                 <td>{{ user.email|default:"-" }}</td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ user.is_active|yesno:"Personel,Inactive User" }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ user.is_superuser|yesno:"Administrator,User" }}
+                                    </span>
+                                </td>
                                 <td>{{ user.date_joined|default:"-" }}</td>
                                 <td>
                                     <a href="{% url 'inventory:update_user' user_id=user.id %}" class="text-success">
@@ -71,6 +83,8 @@
                                 <th>Firstname</th>
                                 <th>Lastname</th>
                                 <th>Email</th>
+                                <th>User Type</th>
+                                <th>Super User</th>
                                 <th>Date Joined</th>
                                 <th>Action</th>
                             </tr>

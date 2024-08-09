@@ -4,7 +4,6 @@ from inventory.custom_view.auth_views import *
 from inventory.custom_view.user_views import *
 from inventory.custom_view.equipment_views import *
 from inventory.custom_view.chemical_views import *
-from django.contrib.auth import views as auth_views
 
 app_name = 'inventory'
 
@@ -41,5 +40,6 @@ urlpatterns = [
     path('users/update/<int:user_id>', UpdateUserView.as_view(), name="update_user"),
     path('users/delete/<int:user_id>', DeleteUserView.as_view(), name="delete_user"),
 
-    # Delete Urls
+    # Generate Report Urls
+    path('generate_report/', generate_report, name="generate_report"),
 ]
