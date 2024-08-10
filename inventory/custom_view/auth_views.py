@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User as DefaultUser
 from inventory.forms import RegisterForm
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 class LoginPage(LoginView):
     template_name = 'registration/login.html'
@@ -14,7 +15,7 @@ class RegisterPage(CreateView):
     template_name = 'registration/register.html'
     model = DefaultUser
     form_class = RegisterForm
-    success_url = reverse_lazy('inventory:login')
+    success_url = reverse_lazy('login')
 
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
@@ -23,6 +24,7 @@ class RegisterPage(CreateView):
     
     def form_valid(self, form: Any) -> HttpResponseRedirect:
         response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! User registered successfully.',extra_tags='success')
         return response
     
 def logout_view(request):

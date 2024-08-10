@@ -13,7 +13,7 @@
             {{ message }}
         </div>
     {% endif %}
-
+    
     {% if message.extra_tags == "error" %}
         <div class="alert alert-danger alert-dismissible">
             <button
@@ -26,7 +26,7 @@
                 <i class="icon fas fa-x"></i> Opppps!
             </h5>
             {{ message }}
-        </div>
+        </div>        
     {% endif %}
 
 {% endfor %}

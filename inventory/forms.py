@@ -65,6 +65,13 @@ class RegisterForm(UserCreationForm):
             {"class": "form-control", "placeholder": "Last Name"}
         )
 
+        self.fields["password1"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Password"}
+        )
+        self.fields["password2"].widget.attrs.update(
+            {"class": "form-control", "placeholder": "Confirm Password"}
+        )
+
     class Meta:
         model = DefaultUser
         fields = ["username", "first_name", "last_name", "password1", "password2"]
