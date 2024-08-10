@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as DefaultUser
 from django.db.models import Q
 from django.contrib import messages
+from weasyprint import HTML
+from django.template.loader import render_to_string
 
 class DashboardPage(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
@@ -28,31 +30,56 @@ def is_empty(value):
 def generate_report(request):
     context = {}
     if request.method == 'POST':
-        date_from = request.POST.get('date_from')
-        date_to = request.POST.get('date_to')
 
-        if is_empty(date_from) != is_empty(date_to) or is_empty(date_to) != is_empty(date_from):
+        expiration_from = request.POST.get('expiration_date_from')
+        expiration_to = request.POST.get('expiration_date_to')
+
+        if is_empty(expiration_from) != is_empty(expiration_to) or is_empty(expiration_to) != is_empty(expiration_from):
             messages.error(request,'Both date filters must be provided. Please enter both a start and end date.',extra_tags="error")
             return HttpResponseRedirect('/chemicals/report')
         
-        elif is_empty(date_from) and is_empty(date_to):
+        elif is_empty(expiration_from) and is_empty(expiration_to):
             generate_report_form = FilterReportForm(request.POST)
             if generate_report_form.is_valid():
                 chemical_category = generate_report_form.cleaned_data['chemical_category']
                 chemical_units = generate_report_form.cleaned_data['chemical_units']
                 availability = generate_report_form.cleaned_data['available_chemical']
 
-                return HttpResponse('Report generated without date successfully')
+                chemicals = Chemicals.objects.filter(
+                    Q(chemical_category=chemical_category) &
+                    Q(chemical_units=chemical_units) &
+                    Q(availability=availability)
+                )
+                context['chemicals'] = chemicals
+                template_string = render_to_string('pdfs/template_pdf.html',context)
+                html = HTML(string=template_string, base_url=request.build_absolute_uri())
+                pdf_file = html.write_pdf()
+                response = HttpResponse(pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'inline; filename="output.pdf"'
+                return response
         else:
             generate_report_form = FilterReportForm(request.POST)
             if generate_report_form.is_valid():
                 chemical_category = generate_report_form.cleaned_data['chemical_category']
                 chemical_units = generate_report_form.cleaned_data['chemical_units']
                 availability = generate_report_form.cleaned_data['available_chemical']
-                date_from = generate_report_form.cleaned_data['date_from']
-                date_to = generate_report_form.cleaned_data['date_to']
+                date_from = generate_report_form.cleaned_data['expiration_date_from']
+                date_to = generate_report_form.cleaned_data['expiration_date_to']
 
-                return HttpResponse('Report generated with date successfully')
+                chemicals = Chemicals.objects.filter(
+                    Q(chemical_category=chemical_category) &
+                    Q(chemical_units=chemical_units) &
+                    Q(availability=availability) &
+                    Q(expiration_date__range=(date_from, date_to))
+                )
+                context['chemicals'] = chemicals
+                template_string = render_to_string('pdfs/template_pdf.html',context)
+                html = HTML(string=template_string, base_url=request.build_absolute_uri())
+                pdf_file = html.write_pdf()
+                response = HttpResponse(pdf_file, content_type='application/pdf')
+                response['Content-Disposition'] = 'inline; filename="output.pdf"'
+                
+                return response
             
     else:
         context['chemicals'] = Chemicals.objects.all()

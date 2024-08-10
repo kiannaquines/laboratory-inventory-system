@@ -34,7 +34,7 @@ class FilterReportForm(forms.Form):
         },
     )
     
-    date_from = forms.DateField(
+    expiration_date_from = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
         error_messages={
@@ -42,7 +42,7 @@ class FilterReportForm(forms.Form):
         }
     )
 
-    date_to = forms.DateField(
+    expiration_date_to = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
         error_messages={
@@ -56,8 +56,8 @@ class FilterReportForm(forms.Form):
             "chemical_category",
             "chemical_units",
             "available_chemical",
-            "date_from",
-            "date_to",
+            "expiration_date_from",
+            "expiration_date_to",
         ]
 
 
