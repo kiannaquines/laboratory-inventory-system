@@ -32,17 +32,10 @@
                 <form action="{% url 'inventory:generate_report' %}" method="post">
                     {% csrf_token %}
                     {% for input in form_filter %}
-                        {% if input.id_for_label == "id_available_chemical" %}
-                            <div class="custom-control custom-checkbox mb-2">
-                                {{ input }}
-                                <label for="{{ input.id_for_label }}" class="custom-control-label">{{ input.label }} {% if input.id_for_label == "id_available_chemical" %}<span class="text-danger">*</span>{% endif %}</label>
-                            </div>
-                        {% else %}
                         <div class="form-group">
                             <label for="{{ input.id_for_label }}">{{ input.label }} {% if input.id_for_label == "id_chemical_category" or input.id_for_label == "id_chemical_units" %}<span class="text-danger">*</span>{% endif %}</label>
                             {{ input }}
                         </div>
-                        {% endif %}
                     {% endfor %}
                     <div class="form-group mt-2">
                         <button type="submit" class="btn btn-success">{{ button_name }}</button>

@@ -41,5 +41,5 @@ urlpatterns = [
     path('users/delete/<int:user_id>', DeleteUserView.as_view(), name="delete_user"),
 
     # Generate Report Urls
-    path('generate_report/', generate_report, name="generate_report"),
+    path('chemicals/report/generate_report/', generate_report, name="generate_report"),
 ]

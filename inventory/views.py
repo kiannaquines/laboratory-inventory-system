@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.contrib import messages
 from weasyprint import HTML
 from django.template.loader import render_to_string
+from datetime import datetime
 
 class DashboardPage(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
@@ -29,6 +30,7 @@ def is_empty(value):
 
 def generate_report(request):
     context = {}
+
     if request.method == 'POST':
 
         expiration_from = request.POST.get('expiration_date_from')
@@ -43,14 +45,18 @@ def generate_report(request):
             if generate_report_form.is_valid():
                 chemical_category = generate_report_form.cleaned_data['chemical_category']
                 chemical_units = generate_report_form.cleaned_data['chemical_units']
-                availability = generate_report_form.cleaned_data['available_chemical']
 
                 chemicals = Chemicals.objects.filter(
                     Q(chemical_category=chemical_category) &
-                    Q(chemical_units=chemical_units) &
-                    Q(availability=availability)
+                    Q(chemical_units=chemical_units)
                 )
+
+                if chemicals.count() == 0:
+                    messages.error(request,'No chemicals found matching the selected criteria.',extra_tags="error")
+                    return HttpResponseRedirect('/chemicals/report')
+                
                 context['chemicals'] = chemicals
+                context['date'] = f'Date: {datetime.now().strftime("%Y-%m-%d")}'
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
@@ -62,23 +68,26 @@ def generate_report(request):
             if generate_report_form.is_valid():
                 chemical_category = generate_report_form.cleaned_data['chemical_category']
                 chemical_units = generate_report_form.cleaned_data['chemical_units']
-                availability = generate_report_form.cleaned_data['available_chemical']
                 date_from = generate_report_form.cleaned_data['expiration_date_from']
                 date_to = generate_report_form.cleaned_data['expiration_date_to']
 
                 chemicals = Chemicals.objects.filter(
                     Q(chemical_category=chemical_category) &
                     Q(chemical_units=chemical_units) &
-                    Q(availability=availability) &
                     Q(expiration_date__range=(date_from, date_to))
                 )
+
+                if chemicals.count() == 0:
+                    messages.error(request,'No chemicals found matching the selected criteria.',extra_tags="error")
+                    return HttpResponseRedirect('/chemicals/report')
+                
                 context['chemicals'] = chemicals
+                context['date'] = f'Date: {date_from} - {date_to}'
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
                 response = HttpResponse(pdf_file, content_type='application/pdf')
                 response['Content-Disposition'] = 'inline; filename="output.pdf"'
-                
                 return response
             
     else:
