@@ -10,6 +10,7 @@ app_name = 'inventory'
 urlpatterns = [
 
     # Auth Urls
+    path('login/', LoginPage.as_view(), name="login"),
     path('register/', RegisterPage.as_view(), name="register"),
     path('logout/',logout_view, name='app_logout'),
     # Dashboard Urls

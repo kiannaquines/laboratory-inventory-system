@@ -6,15 +6,18 @@ from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
 from django.contrib.auth.models import User as DefaultUser
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from inventory.decorator import *
 
-class UserList(LoginRequiredMixin, ListView):
+@method_decorator(not_loggedin, name="dispatch")
+class UserList(ListView):
     template_name = 'user.html'
     model = DefaultUser
     context_object_name = 'users'
 
-class UpdateUserView(LoginRequiredMixin, UpdateView):
+@method_decorator(not_loggedin, name="dispatch")
+class UpdateUserView(UpdateView):
     model = DefaultUser
     form_class = UserUpdateForm
     template_name = 'forms/update_form.html'
@@ -33,7 +36,8 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, 'Yahooo! User updated successfully.',extra_tags='success')
         return response
 
-class DeleteUserView(LoginRequiredMixin, DeleteView):
+@method_decorator(not_loggedin, name="dispatch")
+class DeleteUserView(DeleteView):
     model = DefaultUser
     template_name = 'forms/delete_form.html'
     pk_url_kwarg = 'user_id'
@@ -50,8 +54,9 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         response = super().form_valid(form)
         messages.success(self.request, 'User removed successfully.',extra_tags='success')
         return response
-    
-class AddUserView(LoginRequiredMixin, CreateView):
+
+@method_decorator(not_loggedin, name="dispatch")
+class AddUserView(CreateView):
     template_name = 'forms/add_form.html'
     model = DefaultUser
     form_class = UserForm

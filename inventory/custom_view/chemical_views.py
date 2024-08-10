@@ -5,20 +5,23 @@ from inventory.models import *
 from django.urls import reverse_lazy
 from inventory.forms import *
 from typing import Any
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.utils.decorators import method_decorator
+from inventory.decorator import *
 
-class ChemicalListView(LoginRequiredMixin, ListView):
+@method_decorator(not_loggedin, name="dispatch")
+class ChemicalListView(ListView):
     template_name = 'chemical.html'
     model = Chemicals
     context_object_name = 'chemicals'
-    
-class ChemicalCategoryView(LoginRequiredMixin, ListView):
+@method_decorator(not_loggedin, name="dispatch")    
+class ChemicalCategoryView(ListView):
     template_name = 'chemical_category.html'
     model = ChemicalCategory
-    context_object_name = 'chemical_categories'    
+    context_object_name = 'chemical_categories' 
 
-class ChemicalReportView(LoginRequiredMixin, ListView):
+@method_decorator(not_loggedin, name="dispatch")
+class ChemicalReportView(ListView):
     template_name = 'chemical_report.html'
     model = Chemicals
     context_object_name = 'chemicals'
@@ -30,7 +33,8 @@ class ChemicalReportView(LoginRequiredMixin, ListView):
         context['button_name'] = 'Download PDF'
         return context
     
-class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
+@method_decorator(not_loggedin, name="dispatch")
+class AddChemicalCategoryView(CreateView):
     template_name = 'forms/add_form.html'
     model = ChemicalCategory
     success_url = reverse_lazy('inventory:chemical_category')
@@ -48,7 +52,8 @@ class AddChemicalCategoryView(LoginRequiredMixin, CreateView):
         context['back_button'] = 'Back to Chemical Category List'
         return context
     
-class AddChemicalView(LoginRequiredMixin, CreateView):
+@method_decorator(not_loggedin, name="dispatch")
+class AddChemicalView(CreateView):
     template_name = 'forms/add_form.html'
     model = Chemicals
     success_url = reverse_lazy('inventory:chemicals')
@@ -66,7 +71,8 @@ class AddChemicalView(LoginRequiredMixin, CreateView):
         context['back_button'] = 'Back to Chemical List'
         return context
 
-class UpdateChemicalView(LoginRequiredMixin, UpdateView):
+@method_decorator(not_loggedin, name="dispatch")
+class UpdateChemicalView(UpdateView):
     model = Chemicals
     form_class = ChemicalForm
     template_name = 'forms/update_form.html'
@@ -85,7 +91,8 @@ class UpdateChemicalView(LoginRequiredMixin, UpdateView):
         messages.success(self.request, 'Yahooo! Chemical updated successfully.',extra_tags='success')
         return response
 
-class DeleteChemicalView(LoginRequiredMixin, DeleteView):
+@method_decorator(not_loggedin, name="dispatch")
+class DeleteChemicalView(DeleteView):
     model = Chemicals
     template_name = 'forms/delete_form.html'
     pk_url_kwarg = 'chemical_id'
@@ -104,7 +111,8 @@ class DeleteChemicalView(LoginRequiredMixin, DeleteView):
         messages.success(self.request, 'Chemical removed successfully.',extra_tags='success')
         return response
 
-class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
+@method_decorator(not_loggedin, name="dispatch")
+class UpdateChemicalCategoryView(UpdateView):
     model = ChemicalCategory
     form_class = ChemicalCategoryForm
     template_name = 'forms/update_form.html'
@@ -122,8 +130,9 @@ class UpdateChemicalCategoryView(LoginRequiredMixin, UpdateView):
         response = super().form_valid(form)
         messages.success(self.request, 'Chemical Category updated successfully.',extra_tags='success')
         return response
-    
-class DeleteChemicalCategoryView(LoginRequiredMixin, DeleteView):
+
+@method_decorator(not_loggedin, name="dispatch")
+class DeleteChemicalCategoryView(DeleteView):
     model = ChemicalCategory
     template_name = 'forms/delete_form.html'
     pk_url_kwarg = 'chemical_category_id'

@@ -11,7 +11,10 @@ from django.contrib import messages
 from weasyprint import HTML
 from django.template.loader import render_to_string
 from datetime import datetime
+from django.utils.decorators import method_decorator
+from inventory.decorator import *
 
+@method_decorator(not_loggedin, name="dispatch")
 class DashboardPage(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
@@ -28,6 +31,7 @@ class DashboardPage(LoginRequiredMixin, TemplateView):
 def is_empty(value):
     return value is None or value == "" or value.strip() == ""
 
+@not_loggedin
 def generate_report(request):
     context = {}
 
