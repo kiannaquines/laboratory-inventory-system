@@ -6,6 +6,7 @@
         LIMS Admin
       </span>
     </a>
+    {% if request.user.is_superuser or request.user.is_staff %}
     <div class="sidebar">
       <div class="form-inline mt-2">
         <div class="input-group" data-widget="sidebar-search">
@@ -95,4 +96,30 @@
         </ul>
       </nav>
     </div>
+    {% else %}
+    <div class="sidebar">
+      <div class="form-inline mt-2">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item {% if request.path == '/chemicals/' or request.path == '/chemicals/category'%}menu-is-opening menu-open{% endif %}">
+            <a href="{% url 'inventory:chemicals' %}" class="nav-link {% if request.path == '/chemicals/' or request.path == '/chemicals/category' %}bg-primary{% endif %}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Chemicals
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    {% endif %}
   </aside>

@@ -11,6 +11,12 @@ from django.contrib import messages
 class LoginPage(LoginView):
     template_name = 'registration/login.html'
 
+    def form_valid(self, form: Any) -> HttpResponseRedirect:
+        response = super().form_valid(form)
+        print(f'User {form.get_user()} logged in.')
+        return response
+
+
 class RegisterPage(CreateView):
     template_name = 'registration/register.html'
     model = DefaultUser

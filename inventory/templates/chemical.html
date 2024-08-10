@@ -31,9 +31,13 @@
                     </h3>
                 </div>
                 <div class="ml-auto">
+                    {% if request.user.is_staff or request.user.is_superuser %}
                     <a href="{% url 'inventory:add_chemical' %}" class="btn btn-primary">
                         Add Chemical
                     </a>
+                    {% else %}
+
+                    {% endif %}
                 </div>
             </div>
             <div class="card-body">
@@ -47,7 +51,11 @@
                                 <th>Category</th>
                                 <th>Unit</th>
                                 <th>Expiration Date</th>
+                                <th>Availability</th>
+                                {% if request.user.is_staff or request.user.is_superuser %}
                                 <th>Action</th>
+                                {% else %}
+                                {% endif %}
                             </tr>
                         </thead>
                         <tbody>
@@ -64,6 +72,12 @@
                                 </td>
                                 <td>{{ chemical.expiration_date|default:"-" }}</td>
                                 <td>
+                                    <span class="badge badge-success">
+                                        {{ chemical.availability|yesno:"Availabile,Unavailable" }}
+                                    </span>
+                                </td>
+                                {% if request.user.is_staff or request.user.is_superuser %}
+                                <td>
                                     <a href="{% url 'inventory:update_chemical' chemical_id=chemical.id %}" class="text-success">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
@@ -71,6 +85,8 @@
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
                                 </td>
+                                {% else %}
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -82,7 +98,11 @@
                                 <th>Category</th>
                                 <th>Unit</th>
                                 <th>Expiration Date</th>
+                                <th>Availability</th>
+                                {% if request.user.is_staff or request.user.is_superuser %}
                                 <th>Action</th>
+                                {% else %}
+                                {% endif %}
                             </tr>
                         </tfoot>
                     </table>
