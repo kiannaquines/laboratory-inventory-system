@@ -18,6 +18,12 @@
         <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
+
+        <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+
         {% block css %}{% endblock %}
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
@@ -74,6 +80,8 @@
         <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
         <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
         <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+        <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+
         <script>
 
         function back(){
@@ -81,6 +89,11 @@
         }
         
         $(function () {
+
+        $('select').select2({
+            theme: 'bootstrap4'
+        })
+
           $("#datatable-container").DataTable({
             "responsive": true,
             "lengthChange": true,
