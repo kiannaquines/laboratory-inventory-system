@@ -29,7 +29,6 @@ class LoginPage(View):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                print(f'User {user} logged in.')
 
                 if user.is_superuser or user.is_staff:
                     return redirect(reverse_lazy('inventory:dashboard'))
@@ -43,7 +42,7 @@ class RegisterPage(CreateView):
     template_name = 'registration/register.html'
     model = DefaultUser
     form_class = RegisterForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('inventory:login')
 
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
