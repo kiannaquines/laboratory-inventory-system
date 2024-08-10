@@ -1,5 +1,5 @@
 from typing import Any
-from django.http.response import HttpResponse as HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from inventory.models import Chemicals,ChemicalCategory
@@ -7,6 +7,7 @@ from inventory.forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User as DefaultUser
 from django.db.models import Q
+from django.contrib import messages
 
 class DashboardPage(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
@@ -21,27 +22,44 @@ class DashboardPage(LoginRequiredMixin, TemplateView):
         context['header_title'] = '10 Latest Chemicals'
         return self.render_to_response(context)
 
+def is_empty(value):
+    return value is None or value == "" or value.strip() == ""
 
 def generate_report(request):
     context = {}
     if request.method == 'POST':
-        generate_report_form = FilterReportForm(request.POST)
-        if generate_report_form.is_valid():
-            chemical_category = generate_report_form.cleaned_data['chemical_category']
-            date_from = generate_report_form.cleaned_data['date_from']
-            date_to = generate_report_form.cleaned_data['date_to']
-            chemical_units = generate_report_form.cleaned_data['chemical_units']
+        date_from = request.POST.get('date_from')
+        date_to = request.POST.get('date_to')
 
-            if chemical_category:
-                print('Chemical Category')
-            return HttpResponse('Report generated successfully')
+        if is_empty(date_from) != is_empty(date_to) or is_empty(date_to) != is_empty(date_from):
+            messages.error(request,'Both date filters must be provided. Please enter both a start and end date.',extra_tags="error")
+            return HttpResponseRedirect('/chemicals/report')
         
+        elif is_empty(date_from) and is_empty(date_to):
+            generate_report_form = FilterReportForm(request.POST)
+            if generate_report_form.is_valid():
+                chemical_category = generate_report_form.cleaned_data['chemical_category']
+                chemical_units = generate_report_form.cleaned_data['chemical_units']
+                availability = generate_report_form.cleaned_data['available_chemical']
+
+                return HttpResponse('Report generated without date successfully')
         else:
-            context['chemicals'] = Chemicals.objects.all()
-            context['header_title'] = 'Chemical Report List'
-            context['button_name'] = 'Generate Report'
-            context['form_filter'] = generate_report_form
-            return render(request, 'chemical_report.html',context)
+            generate_report_form = FilterReportForm(request.POST)
+            if generate_report_form.is_valid():
+                chemical_category = generate_report_form.cleaned_data['chemical_category']
+                chemical_units = generate_report_form.cleaned_data['chemical_units']
+                availability = generate_report_form.cleaned_data['available_chemical']
+                date_from = generate_report_form.cleaned_data['date_from']
+                date_to = generate_report_form.cleaned_data['date_to']
+
+                return HttpResponse('Report generated with date successfully')
+            
+    else:
+        context['chemicals'] = Chemicals.objects.all()
+        context['header_title'] = 'Chemical Report List'
+        context['button_name'] = 'Generate Report'
+        context['form_filter'] = generate_report_form
+        return render(request, 'chemical_report.html',context)
     
 
 
