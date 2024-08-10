@@ -56,7 +56,7 @@ def generate_report(request):
                     return HttpResponseRedirect('/chemicals/report')
                 
                 context['chemicals'] = chemicals
-                context['date'] = f'Date: {datetime.now().strftime("%Y-%m-%d")}'
+                context['date'] = f'{datetime.now().strftime("%B %d, %Y")}'
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
@@ -81,8 +81,14 @@ def generate_report(request):
                     messages.error(request,'No chemicals found matching the selected criteria.',extra_tags="error")
                     return HttpResponseRedirect('/chemicals/report')
                 
+                transformed_from = datetime.strptime(expiration_from, '%Y-%m-%d')
+                transformed_to = datetime.strptime(expiration_to, '%Y-%m-%d')
+
+                final_date_from = transformed_from.strftime("%B %d, %Y")
+                final_date_to = transformed_to.strftime("%B %d, %Y")
+
                 context['chemicals'] = chemicals
-                context['date'] = f'Date: {date_from} - {date_to}'
+                context['date'] = f'{final_date_from} - {final_date_to}'
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
@@ -93,7 +99,7 @@ def generate_report(request):
     else:
         context['chemicals'] = Chemicals.objects.all()
         context['header_title'] = 'Chemical Report List'
-        context['button_name'] = 'Generate Report'
+        context['button_name'] = 'Download PDF'
         context['form_filter'] = generate_report_form
         return render(request, 'chemical_report.html',context)
     
