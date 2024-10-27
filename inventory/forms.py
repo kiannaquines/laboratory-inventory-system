@@ -98,7 +98,7 @@ class UserForm(UserCreationForm):
                         "class": "form-control",
                         "placeholder": field.label,
                         "spellcheck": "false",
-                        "required": field.required,
+                        "required": "true",
                     }
                 )
 
@@ -185,6 +185,11 @@ class ChemicalForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             "expiration_date": forms.DateInput(
+                attrs={
+                    "type": "date",
+                }
+            ),
+            "date_acquired": forms.DateInput(
                 attrs={
                     "type": "date",
                 }

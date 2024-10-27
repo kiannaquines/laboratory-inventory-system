@@ -16,6 +16,17 @@ class UserList(ListView):
     model = DefaultUser
     context_object_name = 'users'
 
+    def get_queryset(self):
+        return DefaultUser.objects.filter(is_active=True)
+    
+class InactiveUserList(ListView):
+    template_name = 'archive.html'
+    model = DefaultUser
+    context_object_name = 'users'
+
+    def get_queryset(self):
+        return DefaultUser.objects.filter(is_active=False)
+
 @method_decorator(not_loggedin, name="dispatch")
 class UpdateUserView(UpdateView):
     model = DefaultUser

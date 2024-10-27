@@ -66,6 +66,12 @@
                   <p>Personnel List</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{% url 'inventory:inactive_users' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inactive Users</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item  {% if request.path == '/chemicals/report' or request.path == '/equipments/report' %}menu-is-opening menu-open{% endif %}">

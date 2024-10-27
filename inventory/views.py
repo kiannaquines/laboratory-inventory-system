@@ -1,4 +1,6 @@
+import os
 from typing import Any
+from core.settings import MEDIA_ROOT
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -64,9 +66,18 @@ def generate_report(request):
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
-                response = HttpResponse(pdf_file, content_type='application/pdf')
-                response['Content-Disposition'] = 'inline; filename="output.pdf"'
-                return response
+
+                output_filename = os.path.join(MEDIA_ROOT, 'output.pdf')
+                with open(output_filename, 'wb') as f:
+                    f.write(pdf_file)
+
+                context['chemicals'] = Chemicals.objects.all()
+                context['header_title'] = 'Chemical Report List'
+                context['button_name'] = 'View PDF'
+                context['pdf_link'] = '/media/output.pdf'
+                context['form_filter'] = generate_report_form
+                return render(request, 'chemical_report.html',context)
+            
         else:
             generate_report_form = FilterReportForm(request.POST)
             if generate_report_form.is_valid():
@@ -96,14 +107,23 @@ def generate_report(request):
                 template_string = render_to_string('pdfs/template_pdf.html',context)
                 html = HTML(string=template_string, base_url=request.build_absolute_uri())
                 pdf_file = html.write_pdf()
-                response = HttpResponse(pdf_file, content_type='application/pdf')
-                response['Content-Disposition'] = 'inline; filename="output.pdf"'
-                return response
+
+                output_filename = os.path.join(MEDIA_ROOT, 'output.pdf')
+                with open(output_filename, 'wb') as f:
+                    f.write(pdf_file)
+
+                context['chemicals'] = Chemicals.objects.all()
+                context['header_title'] = 'Chemical Report List'
+                context['button_name'] = 'View PDF'
+                context['pdf_link'] = '/media/output.pdf'
+                context['form_filter'] = generate_report_form
+
+                return render(request, 'chemical_report.html',context)
             
     else:
         context['chemicals'] = Chemicals.objects.all()
         context['header_title'] = 'Chemical Report List'
-        context['button_name'] = 'Download PDF'
+        context['button_name'] = 'Generate'
         context['form_filter'] = generate_report_form
         return render(request, 'chemical_report.html',context)
     

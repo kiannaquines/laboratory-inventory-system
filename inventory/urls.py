@@ -37,6 +37,7 @@ urlpatterns = [
 
     # Users Urls
     path('users/',UserList.as_view(),name="users"),
+    path('users/inactive',InactiveUserList.as_view(),name="inactive_users"),
     path('users/add/', AddUserView.as_view(), name="add_user"),
     path('users/update/<int:user_id>', UpdateUserView.as_view(), name="update_user"),
     path('users/delete/<int:user_id>', DeleteUserView.as_view(), name="delete_user"),

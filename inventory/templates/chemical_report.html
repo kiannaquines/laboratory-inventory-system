@@ -28,17 +28,28 @@
                     Report Filter
                 </h3>
             </div>
-            <div class="card-body">    
+            <div class="card-body">
                 <form action="{% url 'inventory:generate_report' %}" method="post">
                     {% csrf_token %}
                     {% for input in form_filter %}
-                        <div class="form-group">
-                            <label for="{{ input.id_for_label }}">{{ input.label }} {% if input.id_for_label == "id_chemical_category" or input.id_for_label == "id_chemical_units" %}<span class="text-danger">*</span>{% endif %}</label>
-                            {{ input }}
-                        </div>
+                    <div class="form-group">
+                        <label for="{{ input.id_for_label }}">{{ input.label }} {% if input.id_for_label == "id_chemical_category" or input.id_for_label == "id_chemical_units" %}
+                            <span class="text-danger">*</span>{% endif %}
+                        </label>
+                        {{ input }}
+                    </div>
                     {% endfor %}
                     <div class="form-group mt-2">
-                        <button type="submit" class="btn btn-success">{{ button_name }}</button>
+                        {% if pdf_link %}
+                        <a href="{{ pdf_link }}" target="_blank" class="btn btn-success">{{ button_name }}
+                        </a>
+                        <a href="/chemicals/report" class="btn btn-info">Back
+                        </a>
+                        <br>
+                        <span class="text-muted">Click the view pdf button to check the generated report</span>
+                        {% else %}
+                        <button type="submit" class="btn btn-primary">{{ button_name }}</button>
+                        {% endif %}
                     </div>
                 </form>
             </div>

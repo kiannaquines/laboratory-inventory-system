@@ -1,0 +1,93 @@
+{% extends './includes/base.html' %}
+{% block site_breadcrumbs %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Inactive Users</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Users</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <section class="col-lg-12 connectedSortable">
+        {% include './includes/message.html' %}
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="card-title font-weight-bold">
+                    Inactive Users List
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="datatable-container" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                                <th>User Type</th>
+                                <th>Super User</th>
+                                <th>Date Joined</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.username|default:"-" }}</td>
+                                <td>{{ user.first_name|default:"-" }}</td>
+                                <td>{{ user.last_name|default:"-" }}</td>
+                                <td>{{ user.email|default:"-" }}</td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ user.is_active|yesno:"Personel,Inactive User" }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ user.is_superuser|yesno:"Administrator,User" }}
+                                    </span>
+                                </td>
+                                <td>{{ user.date_joined|default:"-" }}</td>
+                                <td>
+                                    <a href="{% url 'inventory:update_user' user_id=user.id %}" class="text-success">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a href="{% url 'inventory:delete_user' user_id=user.id %}" class="text-danger">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Username</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                                <th>User Type</th>
+                                <th>Super User</th>
+                                <th>Date Joined</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

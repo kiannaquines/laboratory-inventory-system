@@ -50,7 +50,7 @@
                                 <th>Quantity</th>
                                 <th>Category</th>
                                 <th>Unit</th>
-                                <th>Expiration Date</th>
+                                <th>Date Acquired</th>
                                 <th>Availability</th>
                                 {% if request.user.is_staff or request.user.is_superuser %}
                                 <th>Action</th>
@@ -70,7 +70,7 @@
                                         {{ chemical.chemical_units|default:"-" }}
                                     </span>
                                 </td>
-                                <td>{{ chemical.expiration_date|default:"-" }}</td>
+                                <td>{{ chemical.date_acquired|default:"-" }}</td>
                                 <td>
                                     <span class="badge badge-success">
                                         {{ chemical.availability|yesno:"Availabile,Unavailable" }}
@@ -97,7 +97,7 @@
                                 <th>Quantity</th>
                                 <th>Category</th>
                                 <th>Unit</th>
-                                <th>Expiration Date</th>
+                                <th>Date Acquired</th>
                                 <th>Availability</th>
                                 {% if request.user.is_staff or request.user.is_superuser %}
                                 <th>Action</th>

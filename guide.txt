@@ -1,0 +1,8 @@
+1. first install python
+2. open the project directory
+3. pip install -r requirements.txt and wait until installation of package complete
+4. python manage.py runserver 8080
+5. Go to this url => 127.0.0.1:8080
+
+Username: jericho
+Password: password0000

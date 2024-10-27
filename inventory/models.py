@@ -79,6 +79,7 @@ class Chemicals(models.Model):
     chemical_category = models.ForeignKey(ChemicalCategory, on_delete=models.CASCADE,help_text="Select the chemical category.")
     chemical_units = models.CharField(max_length=10, choices=chemical_units_category,null=True, blank=True, help_text="Select the chemical units.")
     expiration_date = models.DateField(auto_now_add=False,name="",help_text="Enter the expiration date of the chemical.")
+    date_acquired = models.DateField(auto_now_add=False,name="",help_text="Enter date acquired of the chemical.")
     availability = models.BooleanField(default=True, help_text="Select if the chemical is available.")
     date_added = models.DateTimeField(auto_now_add=True)
     
