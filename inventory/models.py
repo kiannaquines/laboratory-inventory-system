@@ -57,20 +57,6 @@ class Chemicals(models.Model):
         ("mmol", "Millimole"),
         ("μmol", "Micromole"),
         ("M", "Molarity"),
-        ("m", "Molality"),
-        ("X", "Mole fraction"),
-        ("ppm", "Parts per million"),
-        ("ppb", "Parts per billion"),
-        ("J", "Joule"),
-        ("kJ", "Kilojoule"),
-        ("eV", "Electronvolt"),
-        ("°C", "Degrees Celsius"),
-        ("°F", "Degrees Fahrenheit"),
-        ("K", "Kelvin"),
-        ("Pa", "Pascal"),
-        ("kPa", "Kilopascal"),
-        ("atm", "Atmosphere"),
-        ("mmHg", "Millimeters of mercury"),
     )
 
     name = models.CharField(max_length=200, help_text="Enter the chemical name.")
