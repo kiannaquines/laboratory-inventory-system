@@ -3,6 +3,7 @@ from inventory.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User as DefaultUser
 
+
 class RequestChemicalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RequestChemicalForm, self).__init__(*args, **kwargs)
@@ -18,7 +19,7 @@ class RequestChemicalForm(forms.ModelForm):
 
     class Meta:
         model = RequestChemical
-        fields = '__all__'
+        fields = "__all__"
 
 
 class FilterRequestedReportForm(forms.Form):
@@ -28,28 +29,23 @@ class FilterRequestedReportForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
         empty_label="Select Chemical Category",
-        error_messages={
-            "required": "Chemical category field is required."
-        },
+        error_messages={"required": "Chemical category field is required."},
     )
 
     chemical_units = forms.ChoiceField(
         choices=Chemicals.chemical_units_category,
         required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
-        error_messages={
-            "required": "Chemical unit field is required."
-        },
+        error_messages={"required": "Chemical unit field is required."},
     )
 
-    
     expiration_date_from = forms.DateField(
         required=False,
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
         label="Date requested start date range",
         error_messages={
-            'invalid': 'Enter a valid start date.',
-        }
+            "invalid": "Enter a valid start date.",
+        },
     )
 
     expiration_date_to = forms.DateField(
@@ -57,10 +53,9 @@ class FilterRequestedReportForm(forms.Form):
         widget=forms.TextInput(attrs={"type": "date", "class": "form-control"}),
         label="Date requested end date range",
         error_messages={
-            'invalid': 'Enter a valid start date.',
-        }
+            "invalid": "Enter a valid start date.",
+        },
     )
-
 
     class Meta:
         fields = [
@@ -78,20 +73,15 @@ class FilterReportForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
         empty_label="Select Chemical Category",
-        error_messages={
-            "required": "Chemical category field is required."
-        },
+        error_messages={"required": "Chemical category field is required."},
     )
 
     chemical_units = forms.ChoiceField(
         choices=Chemicals.chemical_units_category,
         required=True,
         widget=forms.Select(attrs={"class": "form-control"}),
-        error_messages={
-            "required": "Chemical unit field is required."
-        },
+        error_messages={"required": "Chemical unit field is required."},
     )
-
 
     class Meta:
         fields = [
@@ -259,4 +249,3 @@ class ChemicalCategoryForm(forms.ModelForm):
     class Meta:
         model = ChemicalCategory
         fields = "__all__"
-
