@@ -1,31 +1,27 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-class EquipmentCategory(models.Model):
-    category_name = models.CharField(max_length=100)
-    date_added = models.DateTimeField(auto_now_add=True)
+class RequestChemical(models.Model):
+    requested_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    chemical_requested = models.ForeignKey('Chemicals', on_delete=models.CASCADE)
+    requested_quantity = models.PositiveIntegerField()
+    date_requested = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name_plural = 'Equipment Categories'
-
-    def __str__(self) -> str:
-        return self.category_name
-
-class Equipment(models.Model):
-    equipment_name = models.CharField(max_length=100,help_text="Enter the equipment name.")
-    equipment_model = models.CharField(max_length=100,help_text="Enter the equipment model.")
-    equipment_model_number = models.CharField(max_length=100,help_text="Enter the equipment model number.")
-    equipment_purchase_date = models.DateField(help_text="Enter the equipment purchase date.")
-    equipment_model_cost = models.DecimalField(max_digits=10, decimal_places=2,help_text="Enter the equipment model cost.")
-    equipment_model_quantity = models.IntegerField(help_text="Enter the equipment model quantity.")
-    equipment_category = models.ForeignKey(EquipmentCategory, on_delete=models.CASCADE,help_text="Select the equipment category.")
-    date_added = models.DateTimeField(auto_now_add=True)
-    
-    class Meta:
-        db_table = 'equipment'
-        verbose_name_plural = 'Equipment'
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.chemical_requested.quantity -= self.requested_quantity        
+        self.chemical_requested.save()
+        return self.chemical_requested.quantity
 
     def __str__(self) -> str:
-        return self.equipment_name
+        return self.requested_by.get_full_name()
+
+    class Meta:
+        db_table ='request_chemicals'
+        verbose_name_plural = 'Request Chemicals'
+        verbose_name = 'Request Chemical'
+        ordering = ['-requested_by']
+
 
 class ChemicalCategory(models.Model):
     category_name = models.CharField(max_length=100,help_text="Enter the chemical category name.")

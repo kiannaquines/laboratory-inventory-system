@@ -149,3 +149,81 @@ class DeleteChemicalCategoryView(DeleteView):
         response = super().form_valid(form)
         messages.success(self.request, 'Chemical Category removed successfully.',extra_tags='success')
         return response
+    
+
+@method_decorator(not_loggedin, name="dispatch")
+class AddRequestChemicalView(CreateView):
+    template_name = 'forms/add_form.html'
+    model = RequestChemical
+    success_url = reverse_lazy('inventory:request_chemicals')
+    form_class = RequestChemicalForm
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+
+        chemical = form.cleaned_data['chemical_requested']
+        requested_quantity = form.cleaned_data['requested_quantity']
+        current_quantity = chemical.quantity
+
+        if current_quantity < requested_quantity:
+            messages.error(self.request, 'Not enough stock for requested chemical.', extra_tags='error')
+            return HttpResponseRedirect(reverse_lazy('inventory:request_chemicals'))
+        
+        response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! Chemical Request added successfully.',extra_tags='success')
+        return response
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['header_title'] = 'Add Chemical Request'
+        context['button_name'] = 'Save Chemical Request'
+        context['back_button'] = 'Back to Chemical Request List'
+        return context
+    
+
+@method_decorator(not_loggedin, name="dispatch")
+class UpdateRequestChemicalView(UpdateView):
+    model = RequestChemical
+    form_class = RequestChemicalForm
+    template_name = 'forms/update_form.html'
+    success_url = reverse_lazy('inventory:request_chemicals')
+    pk_url_kwarg = 'request_chemical_id'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['header_title'] = 'Update Chemical Request'
+        context['button_name'] = 'Update Chemical Request'
+        context['back_button'] = 'Back to Chemical Request List'
+        return context
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+
+        chemical = form.cleaned_data['chemical_requested']
+        requested_quantity = form.cleaned_data['requested_quantity']
+        current_quantity = chemical.quantity
+    
+        if current_quantity < requested_quantity:
+            messages.error(self.request, 'Not enough stock for requested chemical.', extra_tags='error')
+            return HttpResponseRedirect(reverse_lazy('inventory:request_chemicals'))
+        
+        response = super().form_valid(form)
+        messages.success(self.request, 'Yahooo! Chemical Request updated successfully.',extra_tags='success')
+        return response
+    
+@method_decorator(not_loggedin, name="dispatch")
+class DeleteRequestChemicalView(DeleteView):
+    model = RequestChemical
+    template_name = 'forms/delete_form.html'
+    pk_url_kwarg = 'request_chemical_id'
+    success_url = reverse_lazy('inventory:request_chemicals')
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['header_title'] = 'Delete Chemical Request'
+        context['button_name'] = 'Delete Chemical Request'
+        context['back_button'] = 'Back to Chemical Request'
+        return context
+    
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        response = super().form_valid(form)
+        messages.success(self.request, 'Chemical Request removed successfully.',extra_tags='success')
+        return response

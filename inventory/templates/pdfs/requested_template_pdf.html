@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chemical Report</title>
+</head>
+<style>
+    @page {
+        size: A3;
+        margin: 1cm
+    }
+
+    body{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    #content_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .header h3 {
+        margin: 0px;
+        padding: 0px;
+        color: #198754;
+    }
+
+    .header span {
+        display: block;
+    }
+
+    #chemicals {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #chemicals td,
+    #chemicals th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #chemicals tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #chemicals th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+    }
+
+    thead tr th {
+        background-color: #198754;
+        color: #ffffff;
+    }
+
+    #content_header img {
+        width: 130px;
+        height: 100px;
+        object-fit: fill;
+    }
+</style>
+
+<body>
+    <div id="content_header">
+        <div class="header">
+            <h3>University of Southern Mindanao</h3>
+            <span>College of Science and Mathematics</span>
+            <span>Email Address: laboratoryname@gmail.com</span>
+            <span>Date: {{ date }}</span>
+        </div>
+        <img src="{% static 'dist/img/laboratory.png' %}">   
+    </div>
+    <table id="chemicals">
+        <thead>
+            <tr>
+                <th>Requested By</th>
+                <th>Chemical</th>
+                <th>Composition</th>
+                <th>Hazard Type</th>
+                <th>Chemical Unit</th>
+                <th>Expiration</th>
+                <th>Quantity</th>
+                <th>Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for chemical in chemicals %}
+            <tr>
+                <td>{{ chemical.requested_by.get_full_name }}</td>
+                <td>{{ chemical.chemical_requested.name }}</td>
+                <td>{{ chemical.chemical_requested.composition }}</td>
+                <td>{{ chemical.chemical_requested.chemical_category }}</td>
+                <td>{{ chemical.chemical_requested.chemical_units }}</td>
+                <td>{{ chemical.chemical_requested.expiration_date }}</td>
+                <td>{{ chemical.requested_quantity }}</td>
+                <td>{{ chemical.chemical_requested.availability|yesno:"Available,Unavailable" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+{% extends './includes/base.html' %}
+{% block site_breadcrumbs %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Requested Chemicals</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Requested Chemicals</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <section class="col-lg-12 connectedSortable">
+        {% include './includes/message.html' %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold">
+                    Report Filter
+                </h3>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'inventory:generate_report_requested' %}" method="post">
+                    {% csrf_token %}
+                    {% for input in form %}
+                    <div class="form-group">
+                        <label for="{{ input.id_for_label }}">{{ input.label }} {% if input.id_for_label == "id_chemical_category" or input.id_for_label == "id_chemical_units" %}
+                            <span class="text-danger">*</span>{% endif %}
+                        </label>
+                        {{ input }}
+                    </div>
+                    {% endfor %}
+                    <div class="form-group mt-2">
+                        {% if pdf_link %}
+                        <a href="{{ pdf_link }}" target="_blank" class="btn btn-success">{{ button_name }}
+                        </a>
+                        <a href="/chemicals/report" class="btn btn-info">Back
+                        </a>
+                        <br>
+                        <span class="text-muted">Click the view pdf button to check the generated report</span>
+                        {% else %}
+                        <button type="submit" class="btn btn-primary">{{ button_name }}</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center w-100">
+                <div>
+                    <h3 class="card-title font-weight-bold">
+                        Requested Chemical List
+                    </h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="datatable-container" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Requested By</th>
+                                <th>Chemical</th>
+                                <th>Composition</th>
+                                <th>Quantity</th>
+                                <th>Category</th>
+                                <th>Unit</th>
+                                <th>Date Acquired</th>
+                                <th>Availability</th>
+                                {% if request.user.is_staff or request.user.is_superuser %}
+                                <th>Action</th>
+                                {% else %}
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for chemical in requests %}
+                            <tr>
+                                <td>{{ chemical.requested_by.get_full_name|default:"-" }}</td>
+                                <td>{{ chemical.chemical_requested.name|default:"-" }}</td>
+                                <td>{{ chemical.chemical_requested.composition|default:"-" }}</td>
+                                <td>{{ chemical.requested_quantity|default:"-" }}</td>
+                                <td>{{ chemical.chemical_requested.chemical_category|default:"-" }}</td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ chemical.chemical_requested.chemical_units|default:"-" }}
+                                    </span>
+                                </td>
+                                <td>{{ chemical.chemical_requested.date_acquired|default:"-" }}</td>
+                                <td>
+                                    <span class="badge badge-success">
+                                        {{ chemical.chemical_requested.availability|yesno:"Availabile,Unavailable" }}
+                                    </span>
+                                </td>
+                                {% if request.user.is_staff or request.user.is_superuser %}
+                                <td>
+                                    <a href="{% url 'inventory:update_request_chemicals' request_chemical_id=chemical.id %}" class="text-success">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+
+                                    <a href="{% url 'inventory:delete_request_chemicals' request_chemical_id=chemical.id %}" class="text-danger">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                    
+                                </td>
+                                {% else %}
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Requested By</th>
+                                <th>Chemical</th>
+                                <th>Composition</th>
+                                <th>Quantity</th>
+                                <th>Category</th>
+                                <th>Unit</th>
+                                <th>Date Acquired</th>
+                                <th>Availability</th>
+                                {% if request.user.is_staff or request.user.is_superuser %}
+                                <th>Action</th>
+                                {% else %}
+                                {% endif %}
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

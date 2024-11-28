@@ -2,7 +2,6 @@ from django.urls import path
 from inventory.views import *
 from inventory.custom_view.auth_views import *
 from inventory.custom_view.user_views import *
-from inventory.custom_view.equipment_views import *
 from inventory.custom_view.chemical_views import *
 
 app_name = 'inventory'
@@ -16,13 +15,6 @@ urlpatterns = [
     # Dashboard Urls
     path('',DashboardPage.as_view(),name="dashboard"),
 
-    # Equipment Urls
-    path('equipments/add/', AddEquipmentView.as_view(), name='add_equipment'),
-    path('equipments/category/add', AddEquipmentCategoryView.as_view(), name='add_equipment_category'),
-    path('equipments/',EquipmentListView.as_view(),name="equipments"),
-    path('equipments/category',EquipmentCategoryView.as_view(),name="equipment_category"),
-    path('equipments/report',EquipmentReportView.as_view(),name="equipment_report"),
-
     # Chemicals Urls
     path('chemicals/',ChemicalListView.as_view(),name="chemicals"),
     path('chemicals/report',ChemicalReportView.as_view(),name="chemical_report"),    
@@ -35,6 +27,15 @@ urlpatterns = [
     path('chemicals/category/update/<int:chemical_category_id>', UpdateChemicalCategoryView.as_view(), name='update_chemical_category'),
     path('chemicals/category/delete/<int:chemical_category_id>', DeleteChemicalCategoryView.as_view(), name='delete_chemical_category'),
 
+
+    # Request Chemicals
+    path('chemicals/request/report', RequestChemicalGenerateReportView.as_view(), name='generate_request_chemicals'),
+    
+    path('chemicals/request/', RequestChemicalView.as_view(), name='request_chemicals'),
+    path('chemicals/request/add/', AddRequestChemicalView.as_view(), name='add_request_chemicals'),
+    path('chemicals/request/update/<int:request_chemical_id>', UpdateRequestChemicalView.as_view(), name='update_request_chemicals'),
+    path('chemicals/request/delete/<int:request_chemical_id>', DeleteRequestChemicalView.as_view(), name='delete_request_chemicals'),
+
     # Users Urls
     path('users/',UserList.as_view(),name="users"),
     path('users/inactive',InactiveUserList.as_view(),name="inactive_users"),
@@ -44,4 +45,5 @@ urlpatterns = [
 
     # Generate Report Urls
     path('chemicals/report/generate_report/', generate_report, name="generate_report"),
+    path('chemicals/report/request/generate_report/', generate_report_requested, name="generate_report_requested"),
 ]

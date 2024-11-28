@@ -44,6 +44,12 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{% url 'inventory:request_chemicals' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Request Chemical</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{% url 'inventory:chemical_category' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hazard Type</p>
@@ -86,7 +92,13 @@
               <li class="nav-item">
                 <a href="{% url 'inventory:chemical_report' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Chemicals</p>
+                  <p>Available Chemicals</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'inventory:generate_request_chemicals' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Requested Chemicals</p>
                 </a>
               </li>
             </ul>
